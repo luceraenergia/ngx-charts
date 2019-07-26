@@ -83,7 +83,7 @@ import { BaseChartComponent } from '../common/base-chart.component';
             [noBarWhenZero]="noBarWhenZero"
             [barWidth]="barWidth"
             [noValueBarWidth]="noValueBarWidth"
-            [noValueLabel]="noValueLabel
+            [noValueLabel]="noValueLabel"
             (select)="onClick($event, group)"
             (activate)="onActivate($event, group)"
             (deactivate)="onDeactivate($event, group)"
