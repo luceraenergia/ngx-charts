@@ -136,7 +136,7 @@ export class SeriesVerticalComponent implements OnChanges {
     this.bars = this.series.map((d, index) => {
       let value = d.value;
       const label = this.getLabel(d);
-      const formattedLabel = formatLabel(label);
+      let formattedLabel = formatLabel(label);
       const roundEdges = this.roundEdges;
       
       d0Type = value > 0 ? D0Types.positive : D0Types.negative;
@@ -165,9 +165,16 @@ export class SeriesVerticalComponent implements OnChanges {
       } else if (this.type === 'stacked') {
         const offset0 = d0[d0Type];
 
-        const offset1 = offset0 + value;
-        d0[d0Type] += value;
+        let offset1 = offset0 + value;
 
+        if (d.extra.noData === true) {
+          formattedLabel = 'Sin datos';
+          const maxValue = this.yScale.domain()[1];
+          offset1 = 16 * maxValue / this.yScale(0);
+          // debugger;
+        } 
+          
+        d0[d0Type] += value;
         totalHeight += this.yScale(offset0) - this.yScale(offset1);
 
         bar.height = totalHeight;        
@@ -197,7 +204,7 @@ export class SeriesVerticalComponent implements OnChanges {
       }
 
       if (this.colors.scaleType === 'ordinal') {
-        bar.color = this.colors.getColor(label);
+        bar.color = this.colors.getColor(label, d);
       } else {
         if (this.type === 'standard') {
           bar.color = this.colors.getColor(value);
@@ -209,19 +216,28 @@ export class SeriesVerticalComponent implements OnChanges {
       }
 
       let tooltipLabel = formattedLabel;
-      bar.ariaLabel = formattedLabel + ' ' + value.toLocaleString();
-      if (this.seriesName) {
-        tooltipLabel = `${this.seriesName} • ${formattedLabel}`;
-        bar.data.series = this.seriesName;
-        bar.ariaLabel = this.seriesName + ' ' + bar.ariaLabel;
+      if (d.extra && d.extra.noData === true) {
+        bar.tooltipText = this.tooltipDisabled
+          ? undefined
+          : `
+          <span class="tooltip-label">${tooltipLabel}</span>
+        `;
+      } else {
+        bar.ariaLabel = formattedLabel + ' ' + value.toLocaleString();
+        if (this.seriesName) {
+          tooltipLabel = `${this.seriesName} • ${formattedLabel}`;
+          bar.data.series = this.seriesName;
+          bar.ariaLabel = this.seriesName + ' ' + bar.ariaLabel;
+        }
+  
+        bar.tooltipText = this.tooltipDisabled
+          ? undefined
+          : `
+          <span class="tooltip-label">${tooltipLabel}</span>
+          <span class="tooltip-val">${value.toLocaleString()}</span>
+        `;
       }
-
-      bar.tooltipText = this.tooltipDisabled
-        ? undefined
-        : `
-        <span class="tooltip-label">${tooltipLabel}</span>
-        <span class="tooltip-val">${value.toLocaleString()}</span>
-      `;
+      
 
       return bar;
     });

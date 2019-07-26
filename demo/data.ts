@@ -78,7 +78,7 @@ export const multi: MultiSeries = [
     series: [
       {
         name: '2010',
-        value: 10000,
+        value: 1000,
         extra: {
           code: 'us'
         }
@@ -111,7 +111,7 @@ export const multi: MultiSeries = [
       },
       {
         name: '2000',
-        value: 34774,
+        value: 1000,
         extra: {
           code: 'fr'
         }
@@ -144,7 +144,7 @@ export const multi: MultiSeries = [
       },
       {
         name: '1990',
-        value: 26424,
+        value: 10000,
         extra: {
           code: 'uk'
         }
@@ -152,9 +152,99 @@ export const multi: MultiSeries = [
     ]
   },
   {
-    name: 'Empty',
+    name: 'Empty 1',
     series: [
-
+      {
+        name: '2010',
+        value: 0,
+        extra: {
+          noData: true
+        }
+      },
+    ]
+  },
+  {
+    name: 'Empty 2',
+    series: [
+      {
+        name: '2010',
+        value: 0,
+        extra: {
+          noData: true
+        }
+      },
+    ]
+  },
+  {
+    name: 'Empty 3',
+    series: [
+      {
+        name: '2010',
+        value: 0,
+        extra: {
+          noData: true
+        }
+      },
+    ]
+  },
+  {
+    name: 'Empty 4',
+    series: [
+      {
+        name: '2010',
+        value: 0,
+        extra: {
+          noData: true
+        }
+      },
+    ]
+  },
+  {
+    name: 'Empty 5',
+    series: [
+      {
+        name: '2010',
+        value: 0,
+        extra: {
+          noData: true
+        }
+      },
+    ]
+  },
+  {
+    name: 'Empty 6',
+    series: [
+      {
+        name: '2010',
+        value: 0,
+        extra: {
+          noData: true
+        }
+      },
+    ]
+  },
+  {
+    name: 'Empty 7',
+    series: [
+      {
+        name: '2010',
+        value: 0,
+        extra: {
+          noData: true
+        }
+      },
+    ]
+  },
+  {
+    name: 'Empty 8',
+    series: [
+      {
+        name: '2010',
+        value: 0,
+        extra: {
+          noData: true
+        }
+      },
     ]
   }
 ];

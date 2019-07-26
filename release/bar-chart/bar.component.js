@@ -130,14 +130,10 @@ var BarComponent = /** @class */ (function () {
     BarComponent.prototype.getRadius = function () {
         var radius = 0;
         if (this.roundEdges && this.height > 5 && this.width > 5) {
-            // if (this.height > this.width) {
             radius = Math.floor(this.width / 2);
-            if (this.height < radius) {
-                radius = this.height;
+            if (this.height < this.width) {
+                radius = Math.floor(this.height / 2);
             }
-            // } else {
-            //   radius = Math.floor(this.width / 6);
-            // }
         }
         return radius;
     };
@@ -154,14 +150,12 @@ var BarComponent = /** @class */ (function () {
             var edges = [false, false, false, false];
             if (this.roundEdges) {
                 if (this.orientation === 'vertical') {
-                    // <LUCERA>
                     // if (this.data.value > 0) {
                     //   edges = [true, true, false, false];
                     // } else {
                     //   edges = [false, false, true, true];
                     // }
                     edges = [true, true, true, true];
-                    // </LUCERA>
                 }
                 else if (this.orientation === 'horizontal') {
                     if (this.data.value > 0) {

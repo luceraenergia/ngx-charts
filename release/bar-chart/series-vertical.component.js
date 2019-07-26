@@ -88,6 +88,12 @@ var SeriesVerticalComponent = /** @class */ (function () {
             else if (_this.type === 'stacked') {
                 var offset0 = d0[d0Type];
                 var offset1 = offset0 + value;
+                if (d.extra.noData === true) {
+                    formattedLabel = 'Sin datos';
+                    var maxValue = _this.yScale.domain()[1];
+                    offset1 = 16 * maxValue / _this.yScale(0);
+                    // debugger;
+                }
                 d0[d0Type] += value;
                 totalHeight += _this.yScale(offset0) - _this.yScale(offset1);
                 bar.height = totalHeight;
@@ -116,7 +122,7 @@ var SeriesVerticalComponent = /** @class */ (function () {
                 value = (offset1 - offset0).toFixed(2) + '%';
             }
             if (_this.colors.scaleType === 'ordinal') {
-                bar.color = _this.colors.getColor(label);
+                bar.color = _this.colors.getColor(label, d);
             }
             else {
                 if (_this.type === 'standard') {
@@ -129,15 +135,22 @@ var SeriesVerticalComponent = /** @class */ (function () {
                 }
             }
             var tooltipLabel = formattedLabel;
-            bar.ariaLabel = formattedLabel + ' ' + value.toLocaleString();
-            if (_this.seriesName) {
-                tooltipLabel = _this.seriesName + " \u2022 " + formattedLabel;
-                bar.data.series = _this.seriesName;
-                bar.ariaLabel = _this.seriesName + ' ' + bar.ariaLabel;
+            if (d.extra && d.extra.noData === true) {
+                bar.tooltipText = _this.tooltipDisabled
+                    ? undefined
+                    : "\n          <span class=\"tooltip-label\">" + tooltipLabel + "</span>\n        ";
             }
-            bar.tooltipText = _this.tooltipDisabled
-                ? undefined
-                : "\n        <span class=\"tooltip-label\">" + tooltipLabel + "</span>\n        <span class=\"tooltip-val\">" + value.toLocaleString() + "</span>\n      ";
+            else {
+                bar.ariaLabel = formattedLabel + ' ' + value.toLocaleString();
+                if (_this.seriesName) {
+                    tooltipLabel = _this.seriesName + " \u2022 " + formattedLabel;
+                    bar.data.series = _this.seriesName;
+                    bar.ariaLabel = _this.seriesName + ' ' + bar.ariaLabel;
+                }
+                bar.tooltipText = _this.tooltipDisabled
+                    ? undefined
+                    : "\n          <span class=\"tooltip-label\">" + tooltipLabel + "</span>\n          <span class=\"tooltip-val\">" + value.toLocaleString() + "</span>\n        ";
+            }
             return bar;
         });
         // this.bars.push({
