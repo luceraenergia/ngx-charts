@@ -82,6 +82,7 @@ import { BaseChartComponent } from '../common/base-chart.component';
             [animations]="animations"
             [noBarWhenZero]="noBarWhenZero"
             [barWidth]="barWidth"
+            [noValueBarWidth]="noValueBarWidth"
             (select)="onClick($event, group)"
             (activate)="onActivate($event, group)"
             (deactivate)="onDeactivate($event, group)"
@@ -139,6 +140,7 @@ export class BarVerticalStackedComponent extends BaseChartComponent {
   @Input() noBarWhenZero: boolean = true;
 
   @Input() barWidth: number = 0;
+  @Input() noValueBarWidth: number = 16;
 
   @Output() activate: EventEmitter<any> = new EventEmitter();
   @Output() deactivate: EventEmitter<any> = new EventEmitter();

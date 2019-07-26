@@ -761,4 +761,12 @@ export class AppComponent implements OnInit {
     this.bubbleDemoChart.drilldown(event);
     this.bubbleDemoTempData = this.bubbleDemoChart.toChart();
   }
+
+  getCustomBarColor(label: string, data: any): string {
+      if (data.extra.noData === true)  {
+          return '#dfe1e6';
+      }
+      return '#1a66ff';
+  }
+  
 }

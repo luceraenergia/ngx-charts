@@ -84,7 +84,7 @@ var PieGridComponent = /** @class */ (function (_super) {
                     return 'rgba(100,100,100,0.3)';
                 }
                 else {
-                    return _this.colorScale.getColor(label);
+                    return _this.colorScale.getColor(label, d);
                 }
             };
             var xPos = d.x + (d.width - padding) / 2;

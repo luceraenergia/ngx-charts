@@ -45,7 +45,7 @@ var ColorHelper = /** @class */ (function () {
         }
         return colorScale;
     };
-    ColorHelper.prototype.getColor = function (value) {
+    ColorHelper.prototype.getColor = function (value, d) {
         if (value === undefined || value === null) {
             throw new Error('Value can not be null');
         }
@@ -57,7 +57,7 @@ var ColorHelper = /** @class */ (function () {
         }
         else {
             if (typeof this.customColors === 'function') {
-                return this.customColors(value);
+                return this.customColors(value, d);
             }
             var formattedValue_1 = value.toString();
             var found = void 0; // todo type customColors
@@ -84,10 +84,10 @@ var ColorHelper = /** @class */ (function () {
         var colorValueScale = scaleBand()
             .domain(this.colorDomain)
             .range([0, 1]);
-        var endColor = this.getColor(value);
+        var endColor = this.getColor(value, null);
         // generate the stops
         var startVal = valueScale(start);
-        var startColor = this.getColor(start);
+        var startColor = this.getColor(start, null);
         var endVal = valueScale(value);
         var i = 1;
         var currentVal = startVal;

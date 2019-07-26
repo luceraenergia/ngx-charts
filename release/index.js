@@ -4750,6 +4750,7 @@ var BarVerticalStackedComponent = /** @class */ (function (_super) {
         _this.showDataLabel = false;
         _this.noBarWhenZero = true;
         _this.barWidth = 0;
+        _this.noValueBarWidth = 16;
         _this.activate = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         _this.deactivate = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         _this.margin = [10, 20, 10, 20];
@@ -5079,6 +5080,10 @@ var BarVerticalStackedComponent = /** @class */ (function (_super) {
         __metadata("design:type", Number)
     ], BarVerticalStackedComponent.prototype, "barWidth", void 0);
     __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+        __metadata("design:type", Number)
+    ], BarVerticalStackedComponent.prototype, "noValueBarWidth", void 0);
+    __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
         __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"])
     ], BarVerticalStackedComponent.prototype, "activate", void 0);
@@ -5093,7 +5098,7 @@ var BarVerticalStackedComponent = /** @class */ (function (_super) {
     BarVerticalStackedComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'ngx-charts-bar-vertical-stacked',
-            template: "\n    <ngx-charts-chart\n      [view]=\"[width, height]\"\n      [showLegend]=\"legend\"\n      [legendOptions]=\"legendOptions\"\n      [activeEntries]=\"activeEntries\"\n      [animations]=\"animations\"\n      (legendLabelActivate)=\"onActivate($event, undefined, true)\"\n      (legendLabelDeactivate)=\"onDeactivate($event, undefined, true)\"\n      (legendLabelClick)=\"onClick($event)\"\n    >\n      <svg:g [attr.transform]=\"transform\" class=\"bar-chart chart\">\n        <svg:g\n          ngx-charts-x-axis\n          *ngIf=\"xAxis\"\n          [xScale]=\"xScale\"\n          [dims]=\"dims\"\n          [showLabel]=\"showXAxisLabel\"\n          [labelText]=\"xAxisLabel\"\n          [trimTicks]=\"trimXAxisTicks\"\n          [rotateTicks]=\"rotateXAxisTicks\"\n          [maxTickLength]=\"maxXAxisTickLength\"\n          [tickFormatting]=\"xAxisTickFormatting\"\n          [ticks]=\"xAxisTicks\"\n          [xAxisOffset]=\"dataLabelMaxHeight.negative\"\n          (dimensionsChanged)=\"updateXAxisHeight($event)\"\n        ></svg:g>\n        <svg:g\n          ngx-charts-y-axis\n          *ngIf=\"yAxis\"\n          [yScale]=\"yScale\"\n          [dims]=\"dims\"\n          [showGridLines]=\"showGridLines\"\n          [showLabel]=\"showYAxisLabel\"\n          [labelText]=\"yAxisLabel\"\n          [trimTicks]=\"trimYAxisTicks\"\n          [maxTickLength]=\"maxYAxisTickLength\"\n          [tickFormatting]=\"yAxisTickFormatting\"\n          [ticks]=\"yAxisTicks\"\n          (dimensionsChanged)=\"updateYAxisWidth($event)\"\n        ></svg:g>\n        <svg:g\n          *ngFor=\"let group of results; let index = index; trackBy: trackBy\"\n          [@animationState]=\"'active'\"\n          [attr.transform]=\"groupTransform(group)\"\n        >\n          <svg:g\n            ngx-charts-series-vertical\n            type=\"stacked\"\n            [xScale]=\"xScale\"\n            [yScale]=\"yScale\"\n            [activeEntries]=\"activeEntries\"\n            [colors]=\"colors\"\n            [series]=\"group.series\"\n            [dims]=\"dims\"\n            [gradient]=\"gradient\"\n            [tooltipDisabled]=\"tooltipDisabled\"\n            [tooltipTemplate]=\"tooltipTemplate\"\n            [showDataLabel]=\"showDataLabel\"\n            [dataLabelFormatting]=\"dataLabelFormatting\"\n            [seriesName]=\"group.name\"\n            [roundEdges]=\"roundEdges\"\n            [animations]=\"animations\"\n            [noBarWhenZero]=\"noBarWhenZero\"\n            [barWidth]=\"barWidth\"\n            (select)=\"onClick($event, group)\"\n            (activate)=\"onActivate($event, group)\"\n            (deactivate)=\"onDeactivate($event, group)\"\n            (dataLabelHeightChanged)=\"onDataLabelMaxHeightChanged($event, index)\"\n          />\n        </svg:g>\n      </svg:g>\n    </ngx-charts-chart>\n  ",
+            template: "\n    <ngx-charts-chart\n      [view]=\"[width, height]\"\n      [showLegend]=\"legend\"\n      [legendOptions]=\"legendOptions\"\n      [activeEntries]=\"activeEntries\"\n      [animations]=\"animations\"\n      (legendLabelActivate)=\"onActivate($event, undefined, true)\"\n      (legendLabelDeactivate)=\"onDeactivate($event, undefined, true)\"\n      (legendLabelClick)=\"onClick($event)\"\n    >\n      <svg:g [attr.transform]=\"transform\" class=\"bar-chart chart\">\n        <svg:g\n          ngx-charts-x-axis\n          *ngIf=\"xAxis\"\n          [xScale]=\"xScale\"\n          [dims]=\"dims\"\n          [showLabel]=\"showXAxisLabel\"\n          [labelText]=\"xAxisLabel\"\n          [trimTicks]=\"trimXAxisTicks\"\n          [rotateTicks]=\"rotateXAxisTicks\"\n          [maxTickLength]=\"maxXAxisTickLength\"\n          [tickFormatting]=\"xAxisTickFormatting\"\n          [ticks]=\"xAxisTicks\"\n          [xAxisOffset]=\"dataLabelMaxHeight.negative\"\n          (dimensionsChanged)=\"updateXAxisHeight($event)\"\n        ></svg:g>\n        <svg:g\n          ngx-charts-y-axis\n          *ngIf=\"yAxis\"\n          [yScale]=\"yScale\"\n          [dims]=\"dims\"\n          [showGridLines]=\"showGridLines\"\n          [showLabel]=\"showYAxisLabel\"\n          [labelText]=\"yAxisLabel\"\n          [trimTicks]=\"trimYAxisTicks\"\n          [maxTickLength]=\"maxYAxisTickLength\"\n          [tickFormatting]=\"yAxisTickFormatting\"\n          [ticks]=\"yAxisTicks\"\n          (dimensionsChanged)=\"updateYAxisWidth($event)\"\n        ></svg:g>\n        <svg:g\n          *ngFor=\"let group of results; let index = index; trackBy: trackBy\"\n          [@animationState]=\"'active'\"\n          [attr.transform]=\"groupTransform(group)\"\n        >\n          <svg:g\n            ngx-charts-series-vertical\n            type=\"stacked\"\n            [xScale]=\"xScale\"\n            [yScale]=\"yScale\"\n            [activeEntries]=\"activeEntries\"\n            [colors]=\"colors\"\n            [series]=\"group.series\"\n            [dims]=\"dims\"\n            [gradient]=\"gradient\"\n            [tooltipDisabled]=\"tooltipDisabled\"\n            [tooltipTemplate]=\"tooltipTemplate\"\n            [showDataLabel]=\"showDataLabel\"\n            [dataLabelFormatting]=\"dataLabelFormatting\"\n            [seriesName]=\"group.name\"\n            [roundEdges]=\"roundEdges\"\n            [animations]=\"animations\"\n            [noBarWhenZero]=\"noBarWhenZero\"\n            [barWidth]=\"barWidth\"\n            [noValueBarWidth]=\"noValueBarWidth\"\n            (select)=\"onClick($event, group)\"\n            (activate)=\"onActivate($event, group)\"\n            (deactivate)=\"onDeactivate($event, group)\"\n            (dataLabelHeightChanged)=\"onDataLabelMaxHeightChanged($event, index)\"\n          />\n        </svg:g>\n      </svg:g>\n    </ngx-charts-chart>\n  ",
             styles: [__webpack_require__("./src/common/base-chart.component.scss")],
             encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None,
             changeDetection: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ChangeDetectionStrategy"].OnPush,
@@ -6165,6 +6170,7 @@ var SeriesVerticalComponent = /** @class */ (function () {
         this.showDataLabel = false;
         this.noBarWhenZero = true;
         this.barWidth = 0;
+        this.noValueBarWidth = 16;
         this.select = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         this.activate = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         this.deactivate = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
@@ -6233,8 +6239,7 @@ var SeriesVerticalComponent = /** @class */ (function () {
                 if (d.extra.noData === true) {
                     formattedLabel = 'Sin datos';
                     var maxValue = _this.yScale.domain()[1];
-                    offset1 = 16 * maxValue / _this.yScale(0);
-                    // debugger;
+                    offset1 = _this.noValueBarWidth * maxValue / _this.yScale(0);
                 }
                 d0[d0Type] += value;
                 totalHeight += _this.yScale(offset0) - _this.yScale(offset1);
@@ -6268,11 +6273,11 @@ var SeriesVerticalComponent = /** @class */ (function () {
             }
             else {
                 if (_this.type === 'standard') {
-                    bar.color = _this.colors.getColor(value);
+                    bar.color = _this.colors.getColor(value, d);
                     bar.gradientStops = _this.colors.getLinearGradientStops(value);
                 }
                 else {
-                    bar.color = _this.colors.getColor(bar.offset1);
+                    bar.color = _this.colors.getColor(bar.offset1, d);
                     bar.gradientStops = _this.colors.getLinearGradientStops(bar.offset1, bar.offset0);
                 }
             }
@@ -6439,6 +6444,10 @@ var SeriesVerticalComponent = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
         __metadata("design:type", Number)
     ], SeriesVerticalComponent.prototype, "barWidth", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+        __metadata("design:type", Number)
+    ], SeriesVerticalComponent.prototype, "noValueBarWidth", void 0);
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
         __metadata("design:type", Object)
@@ -8854,14 +8863,14 @@ var CircleSeriesComponent = /** @class */ (function () {
         var color;
         if (this.colors.scaleType === 'linear') {
             if (this.type === 'standard') {
-                color = this.colors.getColor(value);
+                color = this.colors.getColor(value, d);
             }
             else {
-                color = this.colors.getColor(d.d1);
+                color = this.colors.getColor(d.d1, d);
             }
         }
         else {
-            color = this.colors.getColor(seriesName);
+            color = this.colors.getColor(seriesName, d);
         }
         var data = Object.assign({}, d, {
             series: seriesName,
@@ -9200,7 +9209,7 @@ var ColorHelper = /** @class */ (function () {
         }
         return colorScale;
     };
-    ColorHelper.prototype.getColor = function (value) {
+    ColorHelper.prototype.getColor = function (value, d) {
         if (value === undefined || value === null) {
             throw new Error('Value can not be null');
         }
@@ -9212,7 +9221,7 @@ var ColorHelper = /** @class */ (function () {
         }
         else {
             if (typeof this.customColors === 'function') {
-                return this.customColors(value);
+                return this.customColors(value, d);
             }
             var formattedValue_1 = value.toString();
             var found = void 0; // todo type customColors
@@ -9239,10 +9248,10 @@ var ColorHelper = /** @class */ (function () {
         var colorValueScale = Object(__WEBPACK_IMPORTED_MODULE_1_d3_scale__["scaleBand"])()
             .domain(this.colorDomain)
             .range([0, 1]);
-        var endColor = this.getColor(value);
+        var endColor = this.getColor(value, null);
         // generate the stops
         var startVal = valueScale(start);
-        var startColor = this.getColor(start);
+        var startColor = this.getColor(start, null);
         var endVal = valueScale(value);
         var i = 1;
         var currentVal = startVal;
@@ -17073,7 +17082,7 @@ var PieGridComponent = /** @class */ (function (_super) {
                     return 'rgba(100,100,100,0.3)';
                 }
                 else {
-                    return _this.colorScale.getColor(label);
+                    return _this.colorScale.getColor(label, d);
                 }
             };
             var xPos = d.x + (d.width - padding) / 2;

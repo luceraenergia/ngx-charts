@@ -23,6 +23,7 @@ var SeriesVerticalComponent = /** @class */ (function () {
         this.showDataLabel = false;
         this.noBarWhenZero = true;
         this.barWidth = 0;
+        this.noValueBarWidth = 16;
         this.select = new EventEmitter();
         this.activate = new EventEmitter();
         this.deactivate = new EventEmitter();
@@ -91,8 +92,7 @@ var SeriesVerticalComponent = /** @class */ (function () {
                 if (d.extra.noData === true) {
                     formattedLabel = 'Sin datos';
                     var maxValue = _this.yScale.domain()[1];
-                    offset1 = 16 * maxValue / _this.yScale(0);
-                    // debugger;
+                    offset1 = _this.noValueBarWidth * maxValue / _this.yScale(0);
                 }
                 d0[d0Type] += value;
                 totalHeight += _this.yScale(offset0) - _this.yScale(offset1);
@@ -126,11 +126,11 @@ var SeriesVerticalComponent = /** @class */ (function () {
             }
             else {
                 if (_this.type === 'standard') {
-                    bar.color = _this.colors.getColor(value);
+                    bar.color = _this.colors.getColor(value, d);
                     bar.gradientStops = _this.colors.getLinearGradientStops(value);
                 }
                 else {
-                    bar.color = _this.colors.getColor(bar.offset1);
+                    bar.color = _this.colors.getColor(bar.offset1, d);
                     bar.gradientStops = _this.colors.getLinearGradientStops(bar.offset1, bar.offset0);
                 }
             }
@@ -297,6 +297,10 @@ var SeriesVerticalComponent = /** @class */ (function () {
         Input(),
         __metadata("design:type", Number)
     ], SeriesVerticalComponent.prototype, "barWidth", void 0);
+    __decorate([
+        Input(),
+        __metadata("design:type", Number)
+    ], SeriesVerticalComponent.prototype, "noValueBarWidth", void 0);
     __decorate([
         Output(),
         __metadata("design:type", Object)

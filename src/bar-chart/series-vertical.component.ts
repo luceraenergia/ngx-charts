@@ -86,6 +86,7 @@ export class SeriesVerticalComponent implements OnChanges {
   @Input() dataLabelFormatting: any;
   @Input() noBarWhenZero: boolean = true;
   @Input() barWidth: number = 0;
+  @Input() noValueBarWidth: number = 16;
 
   @Output() select = new EventEmitter();
   @Output() activate = new EventEmitter();
@@ -170,8 +171,7 @@ export class SeriesVerticalComponent implements OnChanges {
         if (d.extra.noData === true) {
           formattedLabel = 'Sin datos';
           const maxValue = this.yScale.domain()[1];
-          offset1 = 16 * maxValue / this.yScale(0);
-          // debugger;
+          offset1 = this.noValueBarWidth * maxValue / this.yScale(0);
         } 
           
         d0[d0Type] += value;
@@ -207,10 +207,10 @@ export class SeriesVerticalComponent implements OnChanges {
         bar.color = this.colors.getColor(label, d);
       } else {
         if (this.type === 'standard') {
-          bar.color = this.colors.getColor(value);
+          bar.color = this.colors.getColor(value, d);
           bar.gradientStops = this.colors.getLinearGradientStops(value);
         } else {
-          bar.color = this.colors.getColor(bar.offset1);
+          bar.color = this.colors.getColor(bar.offset1, d);
           bar.gradientStops = this.colors.getLinearGradientStops(bar.offset1, bar.offset0);
         }
       }

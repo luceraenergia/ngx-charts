@@ -163,7 +163,7 @@ export class PieGridComponent extends BaseChartComponent {
         if (count === 1) {
           return 'rgba(100,100,100,0.3)';
         } else {
-          return this.colorScale.getColor(label);
+          return this.colorScale.getColor(label, d);
         }
       };
 

@@ -65,14 +65,14 @@ var CircleSeriesComponent = /** @class */ (function () {
         var color;
         if (this.colors.scaleType === 'linear') {
             if (this.type === 'standard') {
-                color = this.colors.getColor(value);
+                color = this.colors.getColor(value, d);
             }
             else {
-                color = this.colors.getColor(d.d1);
+                color = this.colors.getColor(d.d1, d);
             }
         }
         else {
-            color = this.colors.getColor(seriesName);
+            color = this.colors.getColor(seriesName, d);
         }
         var data = Object.assign({}, d, {
             series: seriesName,

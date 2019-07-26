@@ -56,7 +56,7 @@ export class ColorHelper {
     return colorScale;
   }
 
-  getColor(value) {
+  getColor(value, d) {
     if (value === undefined || value === null) {
       throw new Error('Value can not be null');
     }
@@ -68,7 +68,7 @@ export class ColorHelper {
       return this.scale(valueScale(value));
     } else {
       if (typeof this.customColors === 'function') {
-        return this.customColors(value);
+        return this.customColors(value, d);
       }
 
       const formattedValue = value.toString();
@@ -100,11 +100,11 @@ export class ColorHelper {
       .domain(this.colorDomain)
       .range([0, 1]);
 
-    const endColor = this.getColor(value);
+    const endColor = this.getColor(value, null);
 
     // generate the stops
     const startVal = valueScale(start);
-    const startColor = this.getColor(start);
+    const startColor = this.getColor(start, null);
 
     const endVal = valueScale(value);
     let i = 1;
