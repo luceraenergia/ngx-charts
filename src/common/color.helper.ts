@@ -56,7 +56,7 @@ export class ColorHelper {
     return colorScale;
   }
 
-  getColor(value, d) {
+  getColor(value, d: any = null) {
     if (value === undefined || value === null) {
       throw new Error('Value can not be null');
     }

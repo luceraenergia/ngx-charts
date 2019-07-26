@@ -9207,6 +9207,7 @@ var ColorHelper = /** @class */ (function () {
         return colorScale;
     };
     ColorHelper.prototype.getColor = function (value, d) {
+        if (d === void 0) { d = null; }
         if (value === undefined || value === null) {
             throw new Error('Value can not be null');
         }
