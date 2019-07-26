@@ -85,8 +85,10 @@ export class SeriesVerticalComponent implements OnChanges {
   @Input() showDataLabel: boolean = false;
   @Input() dataLabelFormatting: any;
   @Input() noBarWhenZero: boolean = true;
+
   @Input() barWidth: number = 0;
   @Input() noValueBarWidth: number = 16;
+  @Input() noValueLabel: string = '';
 
   @Output() select = new EventEmitter();
   @Output() activate = new EventEmitter();
@@ -169,7 +171,7 @@ export class SeriesVerticalComponent implements OnChanges {
         let offset1 = offset0 + value;
 
         if (d.extra.noData === true) {
-          formattedLabel = 'Sin datos';
+          formattedLabel = this.noValueLabel;
           const maxValue = this.yScale.domain()[1];
           offset1 = this.noValueBarWidth * maxValue / this.yScale(0);
         } 
@@ -238,23 +240,9 @@ export class SeriesVerticalComponent implements OnChanges {
         `;
       }
       
-
       return bar;
     });
 
-    // this.bars.push({
-    //   value: 0,
-    //   label: 'Sin datos',
-    //   roundEdges: this.roundEdges,
-    //   data: {
-    //     name: '', value: 0, label: '', series: ''
-    //   },
-    //   width,
-    //   formattedLabel: 'Sin datos',
-    //   height: 16,
-    //   x: barX,
-    //   y: 0
-    // });
 
     this.bars = this.bars.reverse();
 

@@ -35,6 +35,7 @@ export declare class BarVerticalStackedComponent extends BaseChartComponent {
     noBarWhenZero: boolean;
     barWidth: number;
     noValueBarWidth: number;
+    noValueLabel: string;
     activate: EventEmitter<any>;
     deactivate: EventEmitter<any>;
     tooltipTemplate: TemplateRef<any>;
