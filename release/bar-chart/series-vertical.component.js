@@ -22,6 +22,7 @@ var SeriesVerticalComponent = /** @class */ (function () {
         this.animations = true;
         this.showDataLabel = false;
         this.noBarWhenZero = true;
+        this.barWidth = 0;
         this.select = new EventEmitter();
         this.activate = new EventEmitter();
         this.deactivate = new EventEmitter();
@@ -36,10 +37,16 @@ var SeriesVerticalComponent = /** @class */ (function () {
         var _a;
         this.updateTooltipSettings();
         var width;
-        if (this.series.length) {
-            width = this.xScale.bandwidth();
+        if (this.barWidth) {
+            width = this.barWidth;
         }
-        width = Math.round(width);
+        else {
+            if (this.series.length) {
+                width = this.xScale.bandwidth();
+            }
+            width = Math.round(width);
+        }
+        var barX = Math.round(this.xScale.bandwidth() / 2) - Math.round(width / 2);
         var yScaleMin = Math.max(this.yScale.domain()[0], 0);
         var d0 = (_a = {},
             _a[D0Types.positive] = 0,
@@ -50,6 +57,7 @@ var SeriesVerticalComponent = /** @class */ (function () {
         if (this.type === 'normalized') {
             total = this.series.map(function (d) { return d.value; }).reduce(function (sum, d) { return sum + d; }, 0);
         }
+        var totalHeight = 0;
         this.bars = this.series.map(function (d, index) {
             var value = d.value;
             var label = _this.getLabel(d);
@@ -81,8 +89,9 @@ var SeriesVerticalComponent = /** @class */ (function () {
                 var offset0 = d0[d0Type];
                 var offset1 = offset0 + value;
                 d0[d0Type] += value;
-                bar.height = _this.yScale(offset0) - _this.yScale(offset1);
-                bar.x = 0;
+                totalHeight += _this.yScale(offset0) - _this.yScale(offset1);
+                bar.height = totalHeight;
+                bar.x = barX;
                 bar.y = _this.yScale(offset1);
                 bar.offset0 = offset0;
                 bar.offset1 = offset1;
@@ -131,6 +140,20 @@ var SeriesVerticalComponent = /** @class */ (function () {
                 : "\n        <span class=\"tooltip-label\">" + tooltipLabel + "</span>\n        <span class=\"tooltip-val\">" + value.toLocaleString() + "</span>\n      ";
             return bar;
         });
+        // this.bars.push({
+        //   value: 0,
+        //   label: 'Sin datos',
+        //   roundEdges: this.roundEdges,
+        //   data: {
+        //     name: '', value: 0, label: '', series: ''
+        //   },
+        //   width,
+        //   formattedLabel: 'Sin datos',
+        //   height: 16,
+        //   x: barX,
+        //   y: 0
+        // });
+        this.bars = this.bars.reverse();
         this.updateDataLabels();
     };
     SeriesVerticalComponent.prototype.updateDataLabels = function () {
@@ -257,6 +280,10 @@ var SeriesVerticalComponent = /** @class */ (function () {
         Input(),
         __metadata("design:type", Boolean)
     ], SeriesVerticalComponent.prototype, "noBarWhenZero", void 0);
+    __decorate([
+        Input(),
+        __metadata("design:type", Number)
+    ], SeriesVerticalComponent.prototype, "barWidth", void 0);
     __decorate([
         Output(),
         __metadata("design:type", Object)

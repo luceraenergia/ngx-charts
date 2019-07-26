@@ -85,6 +85,7 @@ export class SeriesVerticalComponent implements OnChanges {
   @Input() showDataLabel: boolean = false;
   @Input() dataLabelFormatting: any;
   @Input() noBarWhenZero: boolean = true;
+  @Input() barWidth: number = 0;
 
   @Output() select = new EventEmitter();
   @Output() activate = new EventEmitter();
@@ -106,10 +107,17 @@ export class SeriesVerticalComponent implements OnChanges {
   update(): void {
     this.updateTooltipSettings();
     let width;
-    if (this.series.length) {
-      width = this.xScale.bandwidth();
+    if (this.barWidth) {
+      width = this.barWidth;
+    } else {
+      if (this.series.length) {
+        width = this.xScale.bandwidth();
+      }
+      width = Math.round(width);
     }
-    width = Math.round(width);
+
+    const barX = Math.round(this.xScale.bandwidth() / 2) - Math.round(width / 2);
+
     const yScaleMin = Math.max(this.yScale.domain()[0], 0);
 
     const d0 = {
@@ -123,11 +131,14 @@ export class SeriesVerticalComponent implements OnChanges {
       total = this.series.map(d => d.value).reduce((sum, d) => sum + d, 0);
     }
 
+    let totalHeight = 0;
+
     this.bars = this.series.map((d, index) => {
       let value = d.value;
       const label = this.getLabel(d);
       const formattedLabel = formatLabel(label);
       const roundEdges = this.roundEdges;
+      
       d0Type = value > 0 ? D0Types.positive : D0Types.negative;
 
       const bar: any = {
@@ -153,11 +164,14 @@ export class SeriesVerticalComponent implements OnChanges {
         }
       } else if (this.type === 'stacked') {
         const offset0 = d0[d0Type];
+
         const offset1 = offset0 + value;
         d0[d0Type] += value;
 
-        bar.height = this.yScale(offset0) - this.yScale(offset1);
-        bar.x = 0;
+        totalHeight += this.yScale(offset0) - this.yScale(offset1);
+
+        bar.height = totalHeight;        
+        bar.x = barX;
         bar.y = this.yScale(offset1);
         bar.offset0 = offset0;
         bar.offset1 = offset1;
@@ -211,6 +225,22 @@ export class SeriesVerticalComponent implements OnChanges {
 
       return bar;
     });
+
+    // this.bars.push({
+    //   value: 0,
+    //   label: 'Sin datos',
+    //   roundEdges: this.roundEdges,
+    //   data: {
+    //     name: '', value: 0, label: '', series: ''
+    //   },
+    //   width,
+    //   formattedLabel: 'Sin datos',
+    //   height: 16,
+    //   x: barX,
+    //   y: 0
+    // });
+
+    this.bars = this.bars.reverse();
 
     this.updateDataLabels();
   }

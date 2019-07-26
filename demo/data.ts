@@ -70,7 +70,7 @@ export const multi: MultiSeries = [
         extra: {
           code: 'de'
         }
-      }
+      },
     ]
   },
   {
@@ -78,7 +78,7 @@ export const multi: MultiSeries = [
     series: [
       {
         name: '2010',
-        value: 0,
+        value: 10000,
         extra: {
           code: 'us'
         }
@@ -149,6 +149,12 @@ export const multi: MultiSeries = [
           code: 'uk'
         }
       }
+    ]
+  },
+  {
+    name: 'Empty',
+    series: [
+
     ]
   }
 ];
