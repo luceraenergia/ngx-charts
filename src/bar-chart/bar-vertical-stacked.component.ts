@@ -56,6 +56,7 @@ import { BaseChartComponent } from '../common/base-chart.component';
           [maxTickLength]="maxYAxisTickLength"
           [tickFormatting]="yAxisTickFormatting"
           [ticks]="yAxisTicks"
+          [yOrient]="yAxisOrient"
           (dimensionsChanged)="updateYAxisWidth($event)"
         ></svg:g>
         <svg:g
@@ -143,6 +144,7 @@ export class BarVerticalStackedComponent extends BaseChartComponent {
   @Input() barWidth: number = 0;
   @Input() noValueBarWidth: number = 16;
   @Input() noValueLabel: string = '';
+  @Input() yAxisOrient: string = 'left';
 
   @Output() activate: EventEmitter<any> = new EventEmitter();
   @Output() deactivate: EventEmitter<any> = new EventEmitter();
