@@ -8527,10 +8527,9 @@ var BarVerticalStackedComponent = /** @class */ (function (_super) {
         _this.noValueBarWidth = 16;
         _this.noValueLabel = '';
         _this.yAxisOrient = 'left';
-        _this.initialMargin = [10, 20, 10, 20];
+        _this.innerMargin = [10, 20, 10, 20];
         _this.activate = new EventEmitter();
         _this.deactivate = new EventEmitter();
-        _this.margin = _this.initialMargin;
         _this.xAxisHeight = 0;
         _this.yAxisWidth = 0;
         _this.dataLabelMaxHeight = { negative: 0, positive: 0 };
@@ -8538,14 +8537,15 @@ var BarVerticalStackedComponent = /** @class */ (function (_super) {
     }
     BarVerticalStackedComponent.prototype.update = function () {
         _super.prototype.update.call(this);
+        debugger;
         if (!this.showDataLabel) {
             this.dataLabelMaxHeight = { negative: 0, positive: 0 };
         }
         this.margin = [
-            this.initialMargin[0] + this.dataLabelMaxHeight.positive,
-            this.initialMargin[1],
-            this.initialMargin[2] + this.dataLabelMaxHeight.negative,
-            this.initialMargin[3]
+            this.innerMargin[0] + this.dataLabelMaxHeight.positive,
+            this.innerMargin[1],
+            this.innerMargin[2] + this.dataLabelMaxHeight.negative,
+            this.innerMargin[3]
         ];
         this.dims = calculateViewDimensions({
             width: this.width,
@@ -8877,7 +8877,7 @@ var BarVerticalStackedComponent = /** @class */ (function (_super) {
     __decorate([
         Input(),
         __metadata("design:type", Array)
-    ], BarVerticalStackedComponent.prototype, "initialMargin", void 0);
+    ], BarVerticalStackedComponent.prototype, "innerMargin", void 0);
     __decorate([
         Output(),
         __metadata("design:type", typeof (_a = typeof EventEmitter !== "undefined" && EventEmitter) === "function" ? _a : Object)

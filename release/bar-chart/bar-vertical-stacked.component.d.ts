@@ -37,7 +37,7 @@ export declare class BarVerticalStackedComponent extends BaseChartComponent {
     noValueBarWidth: number;
     noValueLabel: string;
     yAxisOrient: string;
-    initialMargin: [number, number, number, number];
+    innerMargin: [number, number, number, number];
     activate: EventEmitter<any>;
     deactivate: EventEmitter<any>;
     tooltipTemplate: TemplateRef<any>;
@@ -50,7 +50,7 @@ export declare class BarVerticalStackedComponent extends BaseChartComponent {
     transform: string;
     tickFormatting: (label: string) => string;
     colors: ColorHelper;
-    margin: [number, number, number, number];
+    margin: any[];
     xAxisHeight: number;
     yAxisWidth: number;
     legendOptions: any;

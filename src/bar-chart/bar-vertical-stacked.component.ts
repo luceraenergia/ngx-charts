@@ -145,7 +145,7 @@ export class BarVerticalStackedComponent extends BaseChartComponent {
   @Input() noValueBarWidth: number = 16;
   @Input() noValueLabel: string = '';
   @Input() yAxisOrient: string = 'left';
-  @Input() initialMargin: [number, number, number, number] = [10, 20, 10, 20];
+  @Input() innerMargin: [number, number, number, number] = [10, 20, 10, 20];
 
   @Output() activate: EventEmitter<any> = new EventEmitter();
   @Output() deactivate: EventEmitter<any> = new EventEmitter();
@@ -161,7 +161,7 @@ export class BarVerticalStackedComponent extends BaseChartComponent {
   transform: string;
   tickFormatting: (label: string) => string;
   colors: ColorHelper;
-  margin = this.initialMargin;
+  margin: any[];
   xAxisHeight: number = 0;
   yAxisWidth: number = 0;
   legendOptions: any;
@@ -169,15 +169,16 @@ export class BarVerticalStackedComponent extends BaseChartComponent {
 
   update(): void {
     super.update();
+    debugger;
 
     if (!this.showDataLabel) {
       this.dataLabelMaxHeight = { negative: 0, positive: 0 };
     }
     this.margin = [
-      this.initialMargin[0] + this.dataLabelMaxHeight.positive, 
-      this.initialMargin[1], 
-      this.initialMargin[2] + this.dataLabelMaxHeight.negative,
-      this.initialMargin[3]
+      this.innerMargin[0] + this.dataLabelMaxHeight.positive, 
+      this.innerMargin[1], 
+      this.innerMargin[2] + this.dataLabelMaxHeight.negative,
+      this.innerMargin[3]
     ];
 
     this.dims = calculateViewDimensions({
