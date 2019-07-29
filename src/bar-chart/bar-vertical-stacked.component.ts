@@ -169,7 +169,6 @@ export class BarVerticalStackedComponent extends BaseChartComponent {
 
   update(): void {
     super.update();
-    debugger;
 
     if (!this.showDataLabel) {
       this.dataLabelMaxHeight = { negative: 0, positive: 0 };

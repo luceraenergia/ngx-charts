@@ -4763,7 +4763,6 @@ var BarVerticalStackedComponent = /** @class */ (function (_super) {
     }
     BarVerticalStackedComponent.prototype.update = function () {
         _super.prototype.update.call(this);
-        debugger;
         if (!this.showDataLabel) {
             this.dataLabelMaxHeight = { negative: 0, positive: 0 };
         }
