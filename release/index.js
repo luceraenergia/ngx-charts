@@ -4753,9 +4753,9 @@ var BarVerticalStackedComponent = /** @class */ (function (_super) {
         _this.noValueBarWidth = 16;
         _this.noValueLabel = '';
         _this.yAxisOrient = 'left';
+        _this.margin = [10, 20, 10, 20];
         _this.activate = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         _this.deactivate = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
-        _this.margin = [10, 20, 10, 20];
         _this.xAxisHeight = 0;
         _this.yAxisWidth = 0;
         _this.dataLabelMaxHeight = { negative: 0, positive: 0 };
@@ -5093,6 +5093,10 @@ var BarVerticalStackedComponent = /** @class */ (function (_super) {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
         __metadata("design:type", String)
     ], BarVerticalStackedComponent.prototype, "yAxisOrient", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+        __metadata("design:type", Array)
+    ], BarVerticalStackedComponent.prototype, "margin", void 0);
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
         __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"])

@@ -145,6 +145,7 @@ export class BarVerticalStackedComponent extends BaseChartComponent {
   @Input() noValueBarWidth: number = 16;
   @Input() noValueLabel: string = '';
   @Input() yAxisOrient: string = 'left';
+  @Input() margin: [number, number, number, number] = [10, 20, 10, 20];
 
   @Output() activate: EventEmitter<any> = new EventEmitter();
   @Output() deactivate: EventEmitter<any> = new EventEmitter();
@@ -160,7 +161,6 @@ export class BarVerticalStackedComponent extends BaseChartComponent {
   transform: string;
   tickFormatting: (label: string) => string;
   colors: ColorHelper;
-  margin = [10, 20, 10, 20];
   xAxisHeight: number = 0;
   yAxisWidth: number = 0;
   legendOptions: any;
