@@ -4753,9 +4753,10 @@ var BarVerticalStackedComponent = /** @class */ (function (_super) {
         _this.noValueBarWidth = 16;
         _this.noValueLabel = '';
         _this.yAxisOrient = 'left';
-        _this.margin = [10, 20, 10, 20];
+        _this.initialMargin = [10, 20, 10, 20];
         _this.activate = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         _this.deactivate = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
+        _this.margin = _this.initialMargin;
         _this.xAxisHeight = 0;
         _this.yAxisWidth = 0;
         _this.dataLabelMaxHeight = { negative: 0, positive: 0 };
@@ -4766,7 +4767,12 @@ var BarVerticalStackedComponent = /** @class */ (function (_super) {
         if (!this.showDataLabel) {
             this.dataLabelMaxHeight = { negative: 0, positive: 0 };
         }
-        this.margin = [10 + this.dataLabelMaxHeight.positive, 20, 10 + this.dataLabelMaxHeight.negative, 20];
+        this.margin = [
+            this.initialMargin[0] + this.dataLabelMaxHeight.positive,
+            this.initialMargin[1],
+            this.initialMargin[2] + this.dataLabelMaxHeight.negative,
+            this.initialMargin[3]
+        ];
         this.dims = Object(__WEBPACK_IMPORTED_MODULE_3__common_view_dimensions_helper__["a" /* calculateViewDimensions */])({
             width: this.width,
             height: this.height,
@@ -5096,7 +5102,7 @@ var BarVerticalStackedComponent = /** @class */ (function (_super) {
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
         __metadata("design:type", Array)
-    ], BarVerticalStackedComponent.prototype, "margin", void 0);
+    ], BarVerticalStackedComponent.prototype, "initialMargin", void 0);
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
         __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"])
