@@ -103,7 +103,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, ".ngx-charts {\n  float: left;\n  overflow: visible; }\n  .ngx-charts .circle,\n  .ngx-charts .bar,\n  .ngx-charts .arc {\n    cursor: pointer; }\n  .ngx-charts .bar.isOtherActive, .ngx-charts .bar:hover,\n  .ngx-charts .cell.isOtherActive,\n  .ngx-charts .cell:hover,\n  .ngx-charts .arc.isOtherActive,\n  .ngx-charts .arc:hover,\n  .ngx-charts .card.isOtherActive,\n  .ngx-charts .card:hover {\n    opacity: 0.5;\n    transition: opacity 100ms ease-in-out; }\n  .ngx-charts .bar:focus,\n  .ngx-charts .cell:focus,\n  .ngx-charts .arc:focus,\n  .ngx-charts .card:focus {\n    outline: none; }\n  .ngx-charts .bar.hidden,\n  .ngx-charts .cell.hidden,\n  .ngx-charts .arc.hidden,\n  .ngx-charts .card.hidden {\n    display: none; }\n  .ngx-charts g:focus {\n    outline: none; }\n  .ngx-charts .line-series.inactive,\n  .ngx-charts .line-series-range.inactive,\n  .ngx-charts .polar-series-path.inactive,\n  .ngx-charts .polar-series-area.inactive,\n  .ngx-charts .area-series.inactive {\n    transition: opacity 100ms ease-in-out;\n    opacity: .2; }\n  .ngx-charts .line-highlight {\n    display: none; }\n    .ngx-charts .line-highlight.active {\n      display: block; }\n  .ngx-charts .area {\n    opacity: 0.6; }\n  .ngx-charts .circle:hover {\n    cursor: pointer; }\n  .ngx-charts .label {\n    font-size: 12px;\n    font-weight: normal; }\n  .ngx-charts .tooltip-anchor {\n    fill: black; }\n  .ngx-charts .gridline-path {\n    stroke: #ddd;\n    stroke-width: 1;\n    fill: none; }\n  .ngx-charts .refline-path {\n    stroke: #a8b2c7;\n    stroke-width: 1;\n    stroke-dasharray: 5;\n    stroke-dashoffset: 5; }\n  .ngx-charts .refline-label {\n    font-size: 9px; }\n  .ngx-charts .reference-area {\n    fill-opacity: 0.05;\n    fill: #000; }\n  .ngx-charts .gridline-path-dotted {\n    stroke: #ddd;\n    stroke-width: 1;\n    fill: none;\n    stroke-dasharray: 1, 20;\n    stroke-dashoffset: 3; }\n  .ngx-charts .grid-panel rect {\n    fill: none; }\n  .ngx-charts .grid-panel.odd rect {\n    fill: rgba(0, 0, 0, 0.05); }\n", ""]);
+exports.push([module.i, ".ngx-charts {\n  float: left;\n  overflow: visible; }\n  .ngx-charts .circle,\n  .ngx-charts .bar,\n  .ngx-charts .arc {\n    cursor: pointer; }\n  .ngx-charts .bar.isOtherActive, .ngx-charts .bar:hover,\n  .ngx-charts .cell.isOtherActive,\n  .ngx-charts .cell:hover,\n  .ngx-charts .arc.isOtherActive,\n  .ngx-charts .arc:hover,\n  .ngx-charts .card.isOtherActive,\n  .ngx-charts .card:hover {\n    opacity: 0.5;\n    transition: opacity 100ms ease-in; }\n  .ngx-charts .bar:focus,\n  .ngx-charts .cell:focus,\n  .ngx-charts .arc:focus,\n  .ngx-charts .card:focus {\n    outline: none; }\n  .ngx-charts .bar.hidden,\n  .ngx-charts .cell.hidden,\n  .ngx-charts .arc.hidden,\n  .ngx-charts .card.hidden {\n    display: none; }\n  .ngx-charts g:focus {\n    outline: none; }\n  .ngx-charts .line-series.inactive,\n  .ngx-charts .line-series-range.inactive,\n  .ngx-charts .polar-series-path.inactive,\n  .ngx-charts .polar-series-area.inactive,\n  .ngx-charts .area-series.inactive {\n    transition: opacity 100ms ease-in-out;\n    opacity: .2; }\n  .ngx-charts .line-highlight {\n    display: none; }\n    .ngx-charts .line-highlight.active {\n      display: block; }\n  .ngx-charts .area {\n    opacity: 0.6; }\n  .ngx-charts .circle:hover {\n    cursor: pointer; }\n  .ngx-charts .label {\n    font-size: 12px;\n    font-weight: normal; }\n  .ngx-charts .tooltip-anchor {\n    fill: black; }\n  .ngx-charts .gridline-path {\n    stroke: #ddd;\n    stroke-width: 1;\n    fill: none; }\n  .ngx-charts .refline-path {\n    stroke: #a8b2c7;\n    stroke-width: 1;\n    stroke-dasharray: 5;\n    stroke-dashoffset: 5; }\n  .ngx-charts .refline-label {\n    font-size: 9px; }\n  .ngx-charts .reference-area {\n    fill-opacity: 0.05;\n    fill: #000; }\n  .ngx-charts .gridline-path-dotted {\n    stroke: #ddd;\n    stroke-width: 1;\n    fill: none;\n    stroke-dasharray: 1, 20;\n    stroke-dashoffset: 3; }\n  .ngx-charts .grid-panel rect {\n    fill: none; }\n  .ngx-charts .grid-panel.odd rect {\n    fill: rgba(0, 0, 0, 0.05); }\n", ""]);
 
 // exports
 
@@ -6346,23 +6346,19 @@ var SeriesVerticalComponent = /** @class */ (function () {
                 bar.tooltipText = undefined;
             });
             var summaryBarHeight = this.bars[0].height;
-            var summaryBarWidth = this.bars[0].width;
             var summaryBarY = this.bars[0].y;
-            var summaryBarX = this.bars[0].x;
             if (this.showSummaryTooltipOnAllArea === true) {
                 summaryBarHeight = this.yScale(0);
                 summaryBarY = 0;
-                summaryBarWidth = this.xScale.bandwidth() + this.barPadding;
-                summaryBarX = 0;
             }
             this.bars.push({
                 value: null,
                 label: this.bars[0].label,
                 data: this.bars[0].data,
-                width: summaryBarWidth,
+                width: this.xScale.bandwidth() + this.barPadding,
                 formattedLabel: this.bars[0].formattedLabel,
                 height: summaryBarHeight,
-                x: summaryBarX,
+                x: 0,
                 y: summaryBarY,
                 tooltipText: tooltipText,
                 color: 'transparent'

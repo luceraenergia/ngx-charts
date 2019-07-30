@@ -165,23 +165,19 @@ var SeriesVerticalComponent = /** @class */ (function () {
                 bar.tooltipText = undefined;
             });
             var summaryBarHeight = this.bars[0].height;
-            var summaryBarWidth = this.bars[0].width;
             var summaryBarY = this.bars[0].y;
-            var summaryBarX = this.bars[0].x;
             if (this.showSummaryTooltipOnAllArea === true) {
                 summaryBarHeight = this.yScale(0);
                 summaryBarY = 0;
-                summaryBarWidth = this.xScale.bandwidth() + this.barPadding;
-                summaryBarX = 0;
             }
             this.bars.push({
                 value: null,
                 label: this.bars[0].label,
                 data: this.bars[0].data,
-                width: summaryBarWidth,
+                width: this.xScale.bandwidth() + this.barPadding,
                 formattedLabel: this.bars[0].formattedLabel,
                 height: summaryBarHeight,
-                x: summaryBarX,
+                x: 0,
                 y: summaryBarY,
                 tooltipText: tooltipText,
                 color: 'transparent'

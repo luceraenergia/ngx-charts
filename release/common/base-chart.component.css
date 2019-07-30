@@ -13,7 +13,7 @@
   .ngx-charts .card.isOtherActive,
   .ngx-charts .card:hover {
     opacity: 0.5;
-    transition: opacity 100ms ease-in-out; }
+    transition: opacity 100ms ease-in; }
   .ngx-charts .bar:focus,
   .ngx-charts .cell:focus,
   .ngx-charts .arc:focus,
