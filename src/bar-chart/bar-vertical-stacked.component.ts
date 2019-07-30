@@ -76,6 +76,7 @@ import { BaseChartComponent } from '../common/base-chart.component';
             [gradient]="gradient"
             [tooltipDisabled]="tooltipDisabled"
             [tooltipTemplate]="tooltipTemplate"
+            [tooltipShowTimeout]="tooltipShowTimeout"
             [showSummaryTooltip]="showSummaryTooltip"
             [showSummaryTooltipOnAllArea]="showSummaryTooltipOnAllArea"
             [showDataLabel]="showDataLabel"
@@ -145,6 +146,7 @@ export class BarVerticalStackedComponent extends BaseChartComponent {
   @Input() dataLabelFormatting: any;
   @Input() noBarWhenZero: boolean = true;
   @Input() activateSerie: boolean = true;
+  @Input() tooltipShowTimeout: number = 100;
 
   @Input() barWidth: number = 0;
   @Input() noValueBarHeight: number = 16;

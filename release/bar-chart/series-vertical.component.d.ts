@@ -28,6 +28,7 @@ export declare class SeriesVerticalComponent implements OnChanges {
     showSummaryTooltipOnAllArea: boolean;
     barPadding: number;
     activateSerie: boolean;
+    tooltipShowTimeout: number;
     select: EventEmitter<{}>;
     activate: EventEmitter<{}>;
     deactivate: EventEmitter<{}>;

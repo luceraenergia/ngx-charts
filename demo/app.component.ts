@@ -110,6 +110,7 @@ export class AppComponent implements OnInit {
   showSummaryTooltip = true;
   showSummaryTooltipOnAllArea = false;
   activateSerie = true;
+  tooltipShowTimeout = 0;
 
   curves = {
     Basis: shape.curveBasis,

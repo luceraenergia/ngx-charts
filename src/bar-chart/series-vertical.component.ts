@@ -39,6 +39,7 @@ export enum D0Types {
       [tooltipTitle]="tooltipTemplate ? undefined : bar.tooltipText"
       [tooltipTemplate]="tooltipTemplate"
       [tooltipContext]="bar.data"
+      [tooltipShowTimeout]="tooltipShowTimeout"
       [noBarWhenZero]="noBarWhenZero"
       [animations]="animations"
     ></svg:g>
@@ -94,6 +95,7 @@ export class SeriesVerticalComponent implements OnChanges {
   @Input() showSummaryTooltipOnAllArea: boolean = false;
   @Input() barPadding = 8;
   @Input() activateSerie: boolean = false;
+  @Input() tooltipShowTimeout: number = 100;
 
   @Output() select = new EventEmitter();
   @Output() activate = new EventEmitter();
@@ -258,7 +260,7 @@ export class SeriesVerticalComponent implements OnChanges {
 
       let summaryBarHeight = this.bars[0].height;
       let summaryBarY = this.bars[0].y;
-      
+
       if (this.showSummaryTooltipOnAllArea === true) {
         summaryBarHeight = this.yScale(0);
         summaryBarY = 0;
