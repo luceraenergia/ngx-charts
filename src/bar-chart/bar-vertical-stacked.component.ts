@@ -83,7 +83,7 @@ import { BaseChartComponent } from '../common/base-chart.component';
             [animations]="animations"
             [noBarWhenZero]="noBarWhenZero"
             [barWidth]="barWidth"
-            [noValueBarWidth]="noValueBarWidth"
+            [noValueBarHeight]="noValueBarHeight"
             [noValueLabel]="noValueLabel"
             (select)="onClick($event, group)"
             (activate)="onActivate($event, group)"
@@ -142,7 +142,7 @@ export class BarVerticalStackedComponent extends BaseChartComponent {
   @Input() noBarWhenZero: boolean = true;
 
   @Input() barWidth: number = 0;
-  @Input() noValueBarWidth: number = 16;
+  @Input() noValueBarHeight: number = 16;
   @Input() noValueLabel: string = '';
   @Input() yAxisOrient: string = 'left';
   @Input() innerMargin: [number, number, number, number] = [10, 20, 10, 20];

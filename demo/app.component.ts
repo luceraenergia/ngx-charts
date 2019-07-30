@@ -262,7 +262,7 @@ export class AppComponent implements OnInit {
 
     this.dateData = generateData(5, false);
     this.dateDataWithRange = generateData(2, true);
-    this.setColorScheme('cool');
+    this.setColorScheme('lucera');
     this.calendarData = this.getCalendarData();
     this.statusData = this.getStatusData();
     this.sparklineData = generateData(1, false, 30);

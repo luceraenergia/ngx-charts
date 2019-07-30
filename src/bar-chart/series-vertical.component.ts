@@ -87,7 +87,7 @@ export class SeriesVerticalComponent implements OnChanges {
   @Input() noBarWhenZero: boolean = true;
 
   @Input() barWidth: number = 0;
-  @Input() noValueBarWidth: number = 16;
+  @Input() noValueBarHeight: number = 16;
   @Input() noValueLabel: string = '';
 
   @Output() select = new EventEmitter();
@@ -170,11 +170,11 @@ export class SeriesVerticalComponent implements OnChanges {
 
         let offset1 = offset0 + value;
 
-        if (d.extra.noData === true) {
+        if (value === 0) {
           formattedLabel = this.noValueLabel;
           const maxValue = this.yScale.domain()[1];
-          offset1 = this.noValueBarWidth * maxValue / this.yScale(0);
-        } 
+          offset1 = this.noValueBarHeight * maxValue / this.yScale(0);
+        }
           
         d0[d0Type] += value;
         totalHeight += this.yScale(offset0) - this.yScale(offset1);
@@ -218,7 +218,7 @@ export class SeriesVerticalComponent implements OnChanges {
       }
 
       let tooltipLabel = formattedLabel;
-      if (d.extra && d.extra.noData === true) {
+      if (value === 0) {
         bar.tooltipText = this.tooltipDisabled
           ? undefined
           : `

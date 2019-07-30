@@ -1,5 +1,13 @@
 export let colorSets = [
   {
+    name: 'lucera',
+    selectable: true,
+    group: 'Ordinal',
+    domain: [
+      '#1a66ff', '#00ffaa', '#ffdd33', '#00b862', '#afdf0a', '#a7b61a', '#f3e562', '#ff9800', '#ff5722', '#ff4514'
+    ]
+  },
+  {
     name: 'vivid',
     selectable: true,
     group: 'Ordinal',

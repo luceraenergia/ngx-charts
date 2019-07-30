@@ -204,11 +204,6 @@ export class BarComponent implements OnChanges {
     let edges = [false, false, false, false];
     if (this.roundEdges) {
       if (this.orientation === 'vertical') {
-          // if (this.data.value > 0) {
-          //   edges = [true, true, false, false];
-          // } else {
-          //   edges = [false, false, true, true];
-          // }
           edges = [true, true, true, true];
       } else if (this.orientation === 'horizontal') {
         if (this.data.value > 0) {
