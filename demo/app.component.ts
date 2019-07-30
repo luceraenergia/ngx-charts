@@ -8,6 +8,7 @@ import * as d3 from 'd3';
 import { colorSets } from '../src/utils/color-sets';
 import { formatLabel } from '../src/common/label.helper';
 import {
+  lucera,
   single,
   multi,
   bubble,
@@ -69,7 +70,7 @@ export class AppComponent implements OnInit {
   view: any[];
   width: number = 700;
   height: number = 300;
-  fitContainer: boolean = false;
+  fitContainer: boolean = true;
 
   // options
   showXAxis = true;
@@ -242,6 +243,7 @@ export class AppComponent implements OnInit {
     this.mathFunction = this.getFunction();
 
     Object.assign(this, {
+      lucera,
       single,
       multi,
       countries,

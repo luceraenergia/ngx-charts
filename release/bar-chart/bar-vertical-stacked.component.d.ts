@@ -34,7 +34,7 @@ export declare class BarVerticalStackedComponent extends BaseChartComponent {
     dataLabelFormatting: any;
     noBarWhenZero: boolean;
     barWidth: number;
-    noValueBarWidth: number;
+    noValueBarHeight: number;
     noValueLabel: string;
     yAxisOrient: string;
     innerMargin: [number, number, number, number];

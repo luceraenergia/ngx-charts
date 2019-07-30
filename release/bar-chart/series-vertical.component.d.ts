@@ -22,7 +22,7 @@ export declare class SeriesVerticalComponent implements OnChanges {
     dataLabelFormatting: any;
     noBarWhenZero: boolean;
     barWidth: number;
-    noValueBarWidth: number;
+    noValueBarHeight: number;
     noValueLabel: string;
     select: EventEmitter<{}>;
     activate: EventEmitter<{}>;

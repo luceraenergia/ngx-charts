@@ -23,7 +23,7 @@ var SeriesVerticalComponent = /** @class */ (function () {
         this.showDataLabel = false;
         this.noBarWhenZero = true;
         this.barWidth = 0;
-        this.noValueBarWidth = 16;
+        this.noValueBarHeight = 16;
         this.noValueLabel = '';
         this.select = new EventEmitter();
         this.activate = new EventEmitter();
@@ -90,10 +90,10 @@ var SeriesVerticalComponent = /** @class */ (function () {
             else if (_this.type === 'stacked') {
                 var offset0 = d0[d0Type];
                 var offset1 = offset0 + value;
-                if (d.extra.noData === true) {
+                if (value === 0) {
                     formattedLabel = _this.noValueLabel;
                     var maxValue = _this.yScale.domain()[1];
-                    offset1 = _this.noValueBarWidth * maxValue / _this.yScale(0);
+                    offset1 = _this.noValueBarHeight * maxValue / _this.yScale(0);
                 }
                 d0[d0Type] += value;
                 totalHeight += _this.yScale(offset0) - _this.yScale(offset1);
@@ -136,7 +136,7 @@ var SeriesVerticalComponent = /** @class */ (function () {
                 }
             }
             var tooltipLabel = formattedLabel;
-            if (d.extra && d.extra.noData === true) {
+            if (value === 0) {
                 bar.tooltipText = _this.tooltipDisabled
                     ? undefined
                     : "\n          <span class=\"tooltip-label\">" + tooltipLabel + "</span>\n        ";
@@ -288,7 +288,7 @@ var SeriesVerticalComponent = /** @class */ (function () {
     __decorate([
         Input(),
         __metadata("design:type", Number)
-    ], SeriesVerticalComponent.prototype, "noValueBarWidth", void 0);
+    ], SeriesVerticalComponent.prototype, "noValueBarHeight", void 0);
     __decorate([
         Input(),
         __metadata("design:type", String)
