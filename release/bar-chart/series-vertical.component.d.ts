@@ -24,6 +24,10 @@ export declare class SeriesVerticalComponent implements OnChanges {
     barWidth: number;
     noValueBarHeight: number;
     noValueLabel: string;
+    showSummaryTooltip: boolean;
+    showSummaryTooltipOnAllArea: boolean;
+    barPadding: number;
+    activateSerie: boolean;
     select: EventEmitter<{}>;
     activate: EventEmitter<{}>;
     deactivate: EventEmitter<{}>;
@@ -46,6 +50,8 @@ export declare class SeriesVerticalComponent implements OnChanges {
     updateDataLabels(): void;
     updateTooltipSettings(): void;
     isActive(entry: any): boolean;
+    isOtherActive(entry: any): boolean;
+    findCurrentActiveEntry(d: any, entry: any): boolean;
     onClick(data: DataItem): void;
     getLabel(dataItem: any): string;
     trackBy(index: any, bar: any): string;

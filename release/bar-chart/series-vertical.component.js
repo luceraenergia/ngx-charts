@@ -25,6 +25,10 @@ var SeriesVerticalComponent = /** @class */ (function () {
         this.barWidth = 0;
         this.noValueBarHeight = 16;
         this.noValueLabel = '';
+        this.showSummaryTooltip = false;
+        this.showSummaryTooltipOnAllArea = false;
+        this.barPadding = 8;
+        this.activateSerie = false;
         this.select = new EventEmitter();
         this.activate = new EventEmitter();
         this.deactivate = new EventEmitter();
@@ -60,6 +64,7 @@ var SeriesVerticalComponent = /** @class */ (function () {
             total = this.series.map(function (d) { return d.value; }).reduce(function (sum, d) { return sum + d; }, 0);
         }
         var totalHeight = 0;
+        var maxValue = this.yScale.domain()[1];
         this.bars = this.series.map(function (d, index) {
             var value = d.value;
             var label = _this.getLabel(d);
@@ -92,7 +97,6 @@ var SeriesVerticalComponent = /** @class */ (function () {
                 var offset1 = offset0 + value;
                 if (value === 0) {
                     formattedLabel = _this.noValueLabel;
-                    var maxValue = _this.yScale.domain()[1];
                     offset1 = _this.noValueBarHeight * maxValue / _this.yScale(0);
                 }
                 d0[d0Type] += value;
@@ -155,6 +159,34 @@ var SeriesVerticalComponent = /** @class */ (function () {
             return bar;
         });
         this.bars = this.bars.reverse();
+        if (this.showSummaryTooltip === true) {
+            var tooltipText = this.bars.map(function (bar) { return bar.tooltipText; }).join('');
+            this.bars.forEach(function (bar, i) {
+                bar.tooltipText = undefined;
+            });
+            var summaryBarHeight = this.bars[0].height;
+            var summaryBarWidth = this.bars[0].width;
+            var summaryBarY = this.bars[0].y;
+            var summaryBarX = this.bars[0].x;
+            if (this.showSummaryTooltipOnAllArea === true) {
+                summaryBarHeight = this.yScale(0);
+                summaryBarY = 0;
+                summaryBarWidth = this.xScale.bandwidth() + this.barPadding;
+                summaryBarX = 0;
+            }
+            this.bars.push({
+                value: null,
+                label: this.bars[0].label,
+                data: this.bars[0].data,
+                width: summaryBarWidth,
+                formattedLabel: this.bars[0].formattedLabel,
+                height: summaryBarHeight,
+                x: summaryBarX,
+                y: summaryBarY,
+                tooltipText: tooltipText,
+                color: 'transparent'
+            });
+        }
         this.updateDataLabels();
     };
     SeriesVerticalComponent.prototype.updateDataLabels = function () {
@@ -195,12 +227,21 @@ var SeriesVerticalComponent = /** @class */ (function () {
         this.tooltipType = this.tooltipDisabled ? undefined : 'tooltip';
     };
     SeriesVerticalComponent.prototype.isActive = function (entry) {
+        var _this = this;
         if (!this.activeEntries)
             return false;
-        var item = this.activeEntries.find(function (d) {
-            return entry.name === d.name && entry.series === d.series;
-        });
+        var item = this.activeEntries.find(function (d) { return _this.findCurrentActiveEntry(d, entry); });
         return item !== undefined;
+    };
+    SeriesVerticalComponent.prototype.isOtherActive = function (entry) {
+        var _this = this;
+        return this.activeEntries.filter(function (d) { return !_this.findCurrentActiveEntry(d, entry); }).length > 0;
+    };
+    SeriesVerticalComponent.prototype.findCurrentActiveEntry = function (d, entry) {
+        if (this.activateSerie) {
+            return entry.series === d.series;
+        }
+        return entry.name === d.name && entry.series === d.series;
     };
     SeriesVerticalComponent.prototype.onClick = function (data) {
         this.select.emit(data);
@@ -294,6 +335,22 @@ var SeriesVerticalComponent = /** @class */ (function () {
         __metadata("design:type", String)
     ], SeriesVerticalComponent.prototype, "noValueLabel", void 0);
     __decorate([
+        Input(),
+        __metadata("design:type", Boolean)
+    ], SeriesVerticalComponent.prototype, "showSummaryTooltip", void 0);
+    __decorate([
+        Input(),
+        __metadata("design:type", Boolean)
+    ], SeriesVerticalComponent.prototype, "showSummaryTooltipOnAllArea", void 0);
+    __decorate([
+        Input(),
+        __metadata("design:type", Object)
+    ], SeriesVerticalComponent.prototype, "barPadding", void 0);
+    __decorate([
+        Input(),
+        __metadata("design:type", Boolean)
+    ], SeriesVerticalComponent.prototype, "activateSerie", void 0);
+    __decorate([
         Output(),
         __metadata("design:type", Object)
     ], SeriesVerticalComponent.prototype, "select", void 0);
@@ -312,7 +369,7 @@ var SeriesVerticalComponent = /** @class */ (function () {
     SeriesVerticalComponent = __decorate([
         Component({
             selector: 'g[ngx-charts-series-vertical]',
-            template: "\n    <svg:g\n      ngx-charts-bar\n      *ngFor=\"let bar of bars; trackBy: trackBy\"\n      [@animationState]=\"'active'\"\n      [@.disabled]=\"!animations\"\n      [width]=\"bar.width\"\n      [height]=\"bar.height\"\n      [x]=\"bar.x\"\n      [y]=\"bar.y\"\n      [fill]=\"bar.color\"\n      [stops]=\"bar.gradientStops\"\n      [data]=\"bar.data\"\n      [orientation]=\"'vertical'\"\n      [roundEdges]=\"bar.roundEdges\"\n      [gradient]=\"gradient\"\n      [ariaLabel]=\"bar.ariaLabel\"\n      [isActive]=\"isActive(bar.data)\"\n      (select)=\"onClick($event)\"\n      (activate)=\"activate.emit($event)\"\n      (deactivate)=\"deactivate.emit($event)\"\n      ngx-tooltip\n      [tooltipDisabled]=\"tooltipDisabled\"\n      [tooltipPlacement]=\"tooltipPlacement\"\n      [tooltipType]=\"tooltipType\"\n      [tooltipTitle]=\"tooltipTemplate ? undefined : bar.tooltipText\"\n      [tooltipTemplate]=\"tooltipTemplate\"\n      [tooltipContext]=\"bar.data\"\n      [noBarWhenZero]=\"noBarWhenZero\"\n      [animations]=\"animations\"\n    ></svg:g>\n    <svg:g *ngIf=\"showDataLabel\">\n      <svg:g\n        ngx-charts-bar-label\n        *ngFor=\"let b of barsForDataLabels; let i = index; trackBy: trackDataLabelBy\"\n        [barX]=\"b.x\"\n        [barY]=\"b.y\"\n        [barWidth]=\"b.width\"\n        [barHeight]=\"b.height\"\n        [value]=\"b.total\"\n        [valueFormatting]=\"dataLabelFormatting\"\n        [orientation]=\"'vertical'\"\n        (dimensionsChanged)=\"dataLabelHeightChanged.emit({ size: $event, index: i })\"\n      />\n    </svg:g>\n  ",
+            template: "\n    <svg:g\n      ngx-charts-bar\n      *ngFor=\"let bar of bars; trackBy: trackBy\"\n      [@animationState]=\"'active'\"\n      [@.disabled]=\"!animations\"\n      [width]=\"bar.width\"\n      [height]=\"bar.height\"\n      [x]=\"bar.x\"\n      [y]=\"bar.y\"\n      [fill]=\"bar.color\"\n      [stops]=\"bar.gradientStops\"\n      [data]=\"bar.data\"\n      [orientation]=\"'vertical'\"\n      [roundEdges]=\"bar.roundEdges\"\n      [gradient]=\"gradient\"\n      [ariaLabel]=\"bar.ariaLabel\"\n      [isActive]=\"isActive(bar.data)\"\n      [isOtherActive]=\"isOtherActive(bar.data)\"\n      (select)=\"onClick($event)\"\n      (activate)=\"activate.emit($event)\"\n      (deactivate)=\"deactivate.emit($event)\"\n      ngx-tooltip\n      [tooltipDisabled]=\"tooltipDisabled\"\n      [tooltipPlacement]=\"tooltipPlacement\"\n      [tooltipType]=\"tooltipType\"\n      [tooltipTitle]=\"tooltipTemplate ? undefined : bar.tooltipText\"\n      [tooltipTemplate]=\"tooltipTemplate\"\n      [tooltipContext]=\"bar.data\"\n      [noBarWhenZero]=\"noBarWhenZero\"\n      [animations]=\"animations\"\n    ></svg:g>\n    <svg:g *ngIf=\"showDataLabel\">\n      <svg:g\n        ngx-charts-bar-label\n        *ngFor=\"let b of barsForDataLabels; let i = index; trackBy: trackDataLabelBy\"\n        [barX]=\"b.x\"\n        [barY]=\"b.y\"\n        [barWidth]=\"b.width\"\n        [barHeight]=\"b.height\"\n        [value]=\"b.total\"\n        [valueFormatting]=\"dataLabelFormatting\"\n        [orientation]=\"'vertical'\"\n        (dimensionsChanged)=\"dataLabelHeightChanged.emit({ size: $event, index: i })\"\n      />\n    </svg:g>\n  ",
             changeDetection: ChangeDetectionStrategy.OnPush,
             animations: [
                 trigger('animationState', [

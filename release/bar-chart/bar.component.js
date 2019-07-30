@@ -17,6 +17,7 @@ var BarComponent = /** @class */ (function () {
         this.gradient = false;
         this.offset = 0;
         this.isActive = false;
+        this.isOtherActive = false;
         this.animations = true;
         this.noBarWhenZero = true;
         this.select = new EventEmitter();
@@ -224,6 +225,10 @@ var BarComponent = /** @class */ (function () {
     ], BarComponent.prototype, "isActive", void 0);
     __decorate([
         Input(),
+        __metadata("design:type", Boolean)
+    ], BarComponent.prototype, "isOtherActive", void 0);
+    __decorate([
+        Input(),
         __metadata("design:type", Array)
     ], BarComponent.prototype, "stops", void 0);
     __decorate([
@@ -265,7 +270,7 @@ var BarComponent = /** @class */ (function () {
     BarComponent = __decorate([
         Component({
             selector: 'g[ngx-charts-bar]',
-            template: "\n    <svg:defs *ngIf=\"hasGradient\">\n      <svg:g ngx-charts-svg-linear-gradient [orientation]=\"orientation\" [name]=\"gradientId\" [stops]=\"gradientStops\" />\n    </svg:defs>\n    <svg:path\n      class=\"bar\"\n      stroke=\"none\"\n      role=\"img\"\n      tabIndex=\"-1\"\n      [class.active]=\"isActive\"\n      [class.hidden]=\"hideBar\"\n      [attr.d]=\"path\"\n      [attr.aria-label]=\"ariaLabel\"\n      [attr.fill]=\"hasGradient ? gradientFill : fill\"\n      (click)=\"select.emit(data)\"\n    />\n  ",
+            template: "\n    <svg:defs *ngIf=\"hasGradient\">\n      <svg:g ngx-charts-svg-linear-gradient [orientation]=\"orientation\" [name]=\"gradientId\" [stops]=\"gradientStops\" />\n    </svg:defs>\n    <svg:path\n      class=\"bar\"\n      stroke=\"none\"\n      role=\"img\"\n      tabIndex=\"-1\"\n      [class.active]=\"isActive\"\n      [class.isOtherActive]=\"isOtherActive\"\n      [class.hidden]=\"hideBar\"\n      [attr.d]=\"path\"\n      [attr.aria-label]=\"ariaLabel\"\n      [attr.fill]=\"hasGradient ? gradientFill : fill\"\n      (click)=\"select.emit(data)\"\n    />\n  ",
             changeDetection: ChangeDetectionStrategy.OnPush
         }),
         __metadata("design:paramtypes", [ElementRef])

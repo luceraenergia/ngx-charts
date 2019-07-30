@@ -11,6 +11,7 @@ export declare class BarComponent implements OnChanges {
     gradient: boolean;
     offset: number;
     isActive: boolean;
+    isOtherActive: boolean;
     stops: any[];
     animations: boolean;
     ariaLabel: string;

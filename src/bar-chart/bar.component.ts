@@ -25,6 +25,7 @@ import { id } from '../utils/id';
       role="img"
       tabIndex="-1"
       [class.active]="isActive"
+      [class.isOtherActive]="isOtherActive"
       [class.hidden]="hideBar"
       [attr.d]="path"
       [attr.aria-label]="ariaLabel"
@@ -46,6 +47,7 @@ export class BarComponent implements OnChanges {
   @Input() gradient: boolean = false;
   @Input() offset = 0;
   @Input() isActive: boolean = false;
+  @Input() isOtherActive: boolean = false;
   @Input() stops: any[];
   @Input() animations: boolean = true;
   @Input() ariaLabel: string;

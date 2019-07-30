@@ -47,7 +47,7 @@ function multiFormat(value) {
 export class AppComponent implements OnInit {
   version = APP_VERSION;
 
-  theme = 'dark';
+  theme = 'light';
   chartType: string;
   chartGroups: any[];
   chart: any;
@@ -106,6 +106,10 @@ export class AppComponent implements OnInit {
   rotateXAxisTicks = true;
   maxXAxisTickLength = 16;
   maxYAxisTickLength = 16;
+
+  showSummaryTooltip = true;
+  showSummaryTooltipOnAllArea = false;
+  activateSerie = true;
 
   curves = {
     Basis: shape.curveBasis,

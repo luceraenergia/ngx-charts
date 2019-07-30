@@ -76,6 +76,8 @@ import { BaseChartComponent } from '../common/base-chart.component';
             [gradient]="gradient"
             [tooltipDisabled]="tooltipDisabled"
             [tooltipTemplate]="tooltipTemplate"
+            [showSummaryTooltip]="showSummaryTooltip"
+            [showSummaryTooltipOnAllArea]="showSummaryTooltipOnAllArea"
             [showDataLabel]="showDataLabel"
             [dataLabelFormatting]="dataLabelFormatting"
             [seriesName]="group.name"
@@ -85,6 +87,8 @@ import { BaseChartComponent } from '../common/base-chart.component';
             [barWidth]="barWidth"
             [noValueBarHeight]="noValueBarHeight"
             [noValueLabel]="noValueLabel"
+            [barPadding]="barPadding"
+            [activateSerie]="activateSerie"
             (select)="onClick($event, group)"
             (activate)="onActivate($event, group)"
             (deactivate)="onDeactivate($event, group)"
@@ -140,12 +144,15 @@ export class BarVerticalStackedComponent extends BaseChartComponent {
   @Input() showDataLabel: boolean = false;
   @Input() dataLabelFormatting: any;
   @Input() noBarWhenZero: boolean = true;
+  @Input() activateSerie: boolean = true;
 
   @Input() barWidth: number = 0;
   @Input() noValueBarHeight: number = 16;
   @Input() noValueLabel: string = '';
   @Input() yAxisOrient: string = 'left';
   @Input() innerMargin: [number, number, number, number] = [10, 20, 10, 20];
+  @Input() showSummaryTooltip: boolean = false;
+  @Input() showSummaryTooltipOnAllArea: boolean = false;
 
   @Output() activate: EventEmitter<any> = new EventEmitter();
   @Output() deactivate: EventEmitter<any> = new EventEmitter();

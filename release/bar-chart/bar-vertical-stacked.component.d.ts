@@ -33,11 +33,14 @@ export declare class BarVerticalStackedComponent extends BaseChartComponent {
     showDataLabel: boolean;
     dataLabelFormatting: any;
     noBarWhenZero: boolean;
+    activateSerie: boolean;
     barWidth: number;
     noValueBarHeight: number;
     noValueLabel: string;
     yAxisOrient: string;
     innerMargin: [number, number, number, number];
+    showSummaryTooltip: boolean;
+    showSummaryTooltipOnAllArea: boolean;
     activate: EventEmitter<any>;
     deactivate: EventEmitter<any>;
     tooltipTemplate: TemplateRef<any>;

@@ -5,14 +5,14 @@
   .ngx-charts .bar,
   .ngx-charts .arc {
     cursor: pointer; }
-  .ngx-charts .bar.active, .ngx-charts .bar:hover,
-  .ngx-charts .cell.active,
+  .ngx-charts .bar.isOtherActive, .ngx-charts .bar:hover,
+  .ngx-charts .cell.isOtherActive,
   .ngx-charts .cell:hover,
-  .ngx-charts .arc.active,
+  .ngx-charts .arc.isOtherActive,
   .ngx-charts .arc:hover,
-  .ngx-charts .card.active,
+  .ngx-charts .card.isOtherActive,
   .ngx-charts .card:hover {
-    opacity: 0.8;
+    opacity: 0.5;
     transition: opacity 100ms ease-in-out; }
   .ngx-charts .bar:focus,
   .ngx-charts .cell:focus,

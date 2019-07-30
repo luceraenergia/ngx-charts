@@ -28,6 +28,7 @@ export enum D0Types {
       [gradient]="gradient"
       [ariaLabel]="bar.ariaLabel"
       [isActive]="isActive(bar.data)"
+      [isOtherActive]="isOtherActive(bar.data)"
       (select)="onClick($event)"
       (activate)="activate.emit($event)"
       (deactivate)="deactivate.emit($event)"
@@ -89,6 +90,10 @@ export class SeriesVerticalComponent implements OnChanges {
   @Input() barWidth: number = 0;
   @Input() noValueBarHeight: number = 16;
   @Input() noValueLabel: string = '';
+  @Input() showSummaryTooltip: boolean = false;
+  @Input() showSummaryTooltipOnAllArea: boolean = false;
+  @Input() barPadding = 8;
+  @Input() activateSerie: boolean = false;
 
   @Output() select = new EventEmitter();
   @Output() activate = new EventEmitter();
@@ -135,6 +140,7 @@ export class SeriesVerticalComponent implements OnChanges {
     }
 
     let totalHeight = 0;
+    const maxValue = this.yScale.domain()[1];
 
     this.bars = this.series.map((d, index) => {
       let value = d.value;
@@ -172,7 +178,6 @@ export class SeriesVerticalComponent implements OnChanges {
 
         if (value === 0) {
           formattedLabel = this.noValueLabel;
-          const maxValue = this.yScale.domain()[1];
           offset1 = this.noValueBarHeight * maxValue / this.yScale(0);
         }
           
@@ -243,8 +248,40 @@ export class SeriesVerticalComponent implements OnChanges {
       return bar;
     });
 
-
     this.bars = this.bars.reverse();
+
+    if (this.showSummaryTooltip === true) {
+      const tooltipText = this.bars.map(bar => bar.tooltipText).join('');
+      this.bars.forEach((bar, i) => {
+        bar.tooltipText = undefined;
+      });
+
+      let summaryBarHeight = this.bars[0].height;
+      let summaryBarWidth = this.bars[0].width;
+      let summaryBarY = this.bars[0].y;
+      let summaryBarX = this.bars[0].x;
+
+      if (this.showSummaryTooltipOnAllArea === true) {
+        summaryBarHeight = this.yScale(0);
+        summaryBarY = 0;
+        summaryBarWidth = this.xScale.bandwidth() + this.barPadding;
+        summaryBarX = 0;
+      }
+
+      this.bars.push({
+        value: null,
+        label: this.bars[0].label,
+        data: this.bars[0].data,
+        width: summaryBarWidth,
+        formattedLabel: this.bars[0].formattedLabel,
+        height: summaryBarHeight,
+        x: summaryBarX,
+        y: summaryBarY,
+        tooltipText,
+        color: 'transparent'
+      });
+      
+    }
 
     this.updateDataLabels();
   }
@@ -287,10 +324,19 @@ export class SeriesVerticalComponent implements OnChanges {
 
   isActive(entry): boolean {
     if (!this.activeEntries) return false;
-    const item = this.activeEntries.find(d => {
-      return entry.name === d.name && entry.series === d.series;
-    });
+    const item = this.activeEntries.find((d) => this.findCurrentActiveEntry(d, entry));
     return item !== undefined;
+  }
+
+  isOtherActive(entry): boolean {
+    return this.activeEntries.filter((d) => !this.findCurrentActiveEntry(d, entry)).length > 0;
+  }
+
+  findCurrentActiveEntry(d, entry) {
+      if (this.activateSerie) {
+        return entry.series === d.series;  
+      }
+      return entry.name === d.name && entry.series === d.series;
   }
 
   onClick(data: DataItem): void {
