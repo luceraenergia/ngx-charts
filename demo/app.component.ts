@@ -111,6 +111,7 @@ export class AppComponent implements OnInit {
   showSummaryTooltipOnAllArea = false;
   activateSerie = true;
   tooltipShowTimeout = 0;
+  activateOnTouchMove = false;
 
   curves = {
     Basis: shape.curveBasis,

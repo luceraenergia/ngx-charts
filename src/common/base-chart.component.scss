@@ -12,9 +12,9 @@
   .cell,
   .arc,
   .card {
-    &.isOtherActive,
+    &.active,
     &:hover {
-      opacity: 0.2;
+      opacity: 0.5;
       transition: opacity 100ms ease-in;
     }
 

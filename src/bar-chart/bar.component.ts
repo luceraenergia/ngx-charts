@@ -56,6 +56,7 @@ export class BarComponent implements OnChanges {
   @Output() select = new EventEmitter();
   @Output() activate = new EventEmitter();
   @Output() deactivate = new EventEmitter();
+  @Output() activateSibling = new EventEmitter();
 
   element: any;
   path: any;

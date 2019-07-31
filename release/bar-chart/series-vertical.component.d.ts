@@ -32,6 +32,7 @@ export declare class SeriesVerticalComponent implements OnChanges {
     select: EventEmitter<{}>;
     activate: EventEmitter<{}>;
     deactivate: EventEmitter<{}>;
+    activateSibling: EventEmitter<{}>;
     dataLabelHeightChanged: EventEmitter<{}>;
     tooltipPlacement: string;
     tooltipType: string;
@@ -57,4 +58,5 @@ export declare class SeriesVerticalComponent implements OnChanges {
     getLabel(dataItem: any): string;
     trackBy(index: any, bar: any): string;
     trackDataLabelBy(index: any, barLabel: any): string;
+    serializedBarData(bar: any): string;
 }

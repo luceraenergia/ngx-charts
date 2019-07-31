@@ -19,6 +19,7 @@ export declare class BarComponent implements OnChanges {
     select: EventEmitter<{}>;
     activate: EventEmitter<{}>;
     deactivate: EventEmitter<{}>;
+    activateSibling: EventEmitter<{}>;
     element: any;
     path: any;
     gradientId: any;

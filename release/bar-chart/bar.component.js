@@ -23,6 +23,7 @@ var BarComponent = /** @class */ (function () {
         this.select = new EventEmitter();
         this.activate = new EventEmitter();
         this.deactivate = new EventEmitter();
+        this.activateSibling = new EventEmitter();
         this.initialized = false;
         this.hasGradient = false;
         this.hideBar = false;
@@ -255,6 +256,10 @@ var BarComponent = /** @class */ (function () {
         Output(),
         __metadata("design:type", Object)
     ], BarComponent.prototype, "deactivate", void 0);
+    __decorate([
+        Output(),
+        __metadata("design:type", Object)
+    ], BarComponent.prototype, "activateSibling", void 0);
     __decorate([
         HostListener('mouseenter'),
         __metadata("design:type", Function),

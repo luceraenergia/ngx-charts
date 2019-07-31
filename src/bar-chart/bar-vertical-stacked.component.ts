@@ -6,7 +6,8 @@ import {
   ViewEncapsulation,
   ChangeDetectionStrategy,
   ContentChild,
-  TemplateRef
+  TemplateRef,
+  HostListener
 } from '@angular/core';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { scaleBand, scaleLinear } from 'd3-scale';
@@ -94,6 +95,7 @@ import { BaseChartComponent } from '../common/base-chart.component';
             (activate)="onActivate($event, group)"
             (deactivate)="onDeactivate($event, group)"
             (dataLabelHeightChanged)="onDataLabelMaxHeightChanged($event, index)"
+            (activateSibling)="onActivateSibling($event, group)"
           />
         </svg:g>
       </svg:g>
@@ -155,6 +157,7 @@ export class BarVerticalStackedComponent extends BaseChartComponent {
   @Input() innerMargin: [number, number, number, number] = [10, 20, 10, 20];
   @Input() showSummaryTooltip: boolean = false;
   @Input() showSummaryTooltipOnAllArea: boolean = false;
+  @Input() activateOnTouchMove: boolean = false;
 
   @Output() activate: EventEmitter<any> = new EventEmitter();
   @Output() deactivate: EventEmitter<any> = new EventEmitter();
@@ -391,5 +394,18 @@ export class BarVerticalStackedComponent extends BaseChartComponent {
     });
 
     this.deactivate.emit({ value: item, entries: this.activeEntries });
+  }
+
+  @HostListener('touchmove', ['$event'])
+  onTouchmove(e): void {
+    if (this.activateOnTouchMove === true) {
+      const elementFromPoint = document.elementFromPoint(
+        e.changedTouches[0].clientX,
+        e.changedTouches[0].clientY);
+  
+      if (elementFromPoint && elementFromPoint.parentElement.dataset.bardata) {
+        this.onActivate(JSON.parse(elementFromPoint.parentElement.dataset.bardata), null);
+      }
+    }
   }
 }

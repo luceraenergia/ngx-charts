@@ -32,6 +32,7 @@ export enum D0Types {
       (select)="onClick($event)"
       (activate)="activate.emit($event)"
       (deactivate)="deactivate.emit($event)"
+      (activateSibling)="activateSibling.emit($event)"
       ngx-tooltip
       [tooltipDisabled]="tooltipDisabled"
       [tooltipPlacement]="tooltipPlacement"
@@ -42,6 +43,7 @@ export enum D0Types {
       [tooltipShowTimeout]="tooltipShowTimeout"
       [noBarWhenZero]="noBarWhenZero"
       [animations]="animations"
+      [attr.data-bardata]="serializedBarData(bar)"
     ></svg:g>
     <svg:g *ngIf="showDataLabel">
       <svg:g
@@ -100,6 +102,7 @@ export class SeriesVerticalComponent implements OnChanges {
   @Output() select = new EventEmitter();
   @Output() activate = new EventEmitter();
   @Output() deactivate = new EventEmitter();
+  @Output() activateSibling = new EventEmitter();
   @Output() dataLabelHeightChanged = new EventEmitter();
 
   tooltipPlacement: string;
@@ -354,5 +357,9 @@ export class SeriesVerticalComponent implements OnChanges {
 
   trackDataLabelBy(index, barLabel) {
     return index + '#' + barLabel.series + '#' + barLabel.total;
+  }
+
+  serializedBarData(bar) {
+    return JSON.stringify(bar.data);
   }
 }

@@ -42,6 +42,7 @@ export declare class BarVerticalStackedComponent extends BaseChartComponent {
     innerMargin: [number, number, number, number];
     showSummaryTooltip: boolean;
     showSummaryTooltipOnAllArea: boolean;
+    activateOnTouchMove: boolean;
     activate: EventEmitter<any>;
     deactivate: EventEmitter<any>;
     tooltipTemplate: TemplateRef<any>;
@@ -85,4 +86,5 @@ export declare class BarVerticalStackedComponent extends BaseChartComponent {
     }): void;
     onActivate(event: any, group: any, fromLegend?: boolean): void;
     onDeactivate(event: any, group: any, fromLegend?: boolean): void;
+    onTouchmove(e: any): void;
 }
