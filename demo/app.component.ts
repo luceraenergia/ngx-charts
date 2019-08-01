@@ -9,6 +9,7 @@ import { colorSets } from '../src/utils/color-sets';
 import { formatLabel } from '../src/common/label.helper';
 import {
   lucera,
+  lucera_nodata,
   single,
   multi,
   bubble,
@@ -100,7 +101,7 @@ export class AppComponent implements OnInit {
   yScaleMin: number;
   yScaleMax: number;
   showDataLabel = false;
-  noBarWhenZero = true;
+  noBarWhenZero = false;
   trimXAxisTicks = true;
   trimYAxisTicks = true;
   rotateXAxisTicks = true;
@@ -250,6 +251,7 @@ export class AppComponent implements OnInit {
 
     Object.assign(this, {
       lucera,
+      lucera_nodata,
       single,
       multi,
       countries,

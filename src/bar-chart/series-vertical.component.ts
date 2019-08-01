@@ -58,7 +58,7 @@ export enum D0Types {
         [orientation]="'vertical'"
         (dimensionsChanged)="dataLabelHeightChanged.emit({ size: $event, index: i })"
       />
-    </svg:g>
+    </svg:g>    
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
@@ -145,7 +145,7 @@ export class SeriesVerticalComponent implements OnChanges {
     }
 
     let totalHeight = 0;
-    const maxValue = this.yScale.domain()[1];
+    const maxValue = this.yScale.domain()[1];    
 
     this.bars = this.series.map((d, index) => {
       let value = d.value;
@@ -180,18 +180,23 @@ export class SeriesVerticalComponent implements OnChanges {
         const offset0 = d0[d0Type];
 
         let offset1 = offset0 + value;
+        d0[d0Type] += value;
 
         if (value === 0) {
           formattedLabel = this.noValueLabel;
           offset1 = this.noValueBarHeight * maxValue / this.yScale(0);
         }
-          
-        d0[d0Type] += value;
-        totalHeight += this.yScale(offset0) - this.yScale(offset1);
 
-        bar.height = totalHeight;        
+        if (maxValue === 0) {
+          bar.height = this.noValueBarHeight;   
+          bar.y = this.yScale(offset1) - this.noValueBarHeight;
+        } else {
+          totalHeight += this.yScale(offset0) - this.yScale(offset1);
+          bar.height = totalHeight;   
+          bar.y = this.yScale(offset1);
+        }
+             
         bar.x = barX;
-        bar.y = this.yScale(offset1);
         bar.offset0 = offset0;
         bar.offset1 = offset1;
       } else if (this.type === 'normalized') {
