@@ -122,7 +122,6 @@ export class LineSeriesComponent implements OnChanges {
 
     if (this.showCircleOnValue) {
       this.generateCircles(data);
-      console.log(this.circles);
     }
 
     const lineGen = this.getLineGenerator();

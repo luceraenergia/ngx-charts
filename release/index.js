@@ -15337,7 +15337,6 @@ var LineSeriesComponent = /** @class */ (function () {
         var data = this.sortData(this.data.series);
         if (this.showCircleOnValue) {
             this.generateCircles(data);
-            console.log(this.circles);
         }
         var lineGen = this.getLineGenerator();
         this.path = lineGen(data) || '';
