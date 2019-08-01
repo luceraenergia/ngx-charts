@@ -158,7 +158,7 @@
         [view]="view"
         [scheme]="colorScheme"
         [schemeType]="schemeType"
-        [results]="multi"
+        [results]="lucera_nodata"
         [animations]="animations"
         [gradient]="gradient"
         [tooltipDisabled]="tooltipDisabled"
@@ -364,7 +364,7 @@
         class="chart-container"
         [scheme]="colorScheme"
         [schemeType]="schemeType"
-        [results]="dateDataWithOrWithoutRange"
+        [results]="lucera_neighbours"
         [animations]="animations"
         [legend]="showLegend"
         [legendTitle]="legendTitle"
@@ -383,7 +383,6 @@
         [yScaleMin]="yScaleMin"
         [yScaleMax]="yScaleMax"
         [timeline]="timeline"
-        [showGridLines]="showGridLines"
         [curve]="curve"
         [rangeFillOpacity]="rangeFillOpacity"
         [roundDomains]="roundDomains"
@@ -396,6 +395,12 @@
         (select)="select($event)"
         (activate)="activate($event)"
         (deactivate)="deactivate($event)"
+
+        [strokeWidth]="strokeWidth"
+        [yAxisOrient]="'right'"
+        [showCircleOnValue]='showCircleOnValue'
+        [showXAxisGridLines]="showXAxisGridLines"
+        [showYAxisGridLines]="showYAxisGridLines"
       >
       </ngx-charts-line-chart>
       <ngx-charts-polar-chart

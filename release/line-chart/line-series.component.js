@@ -14,6 +14,9 @@ import { sortLinear, sortByTime, sortByDomain } from '../utils/sort';
 var LineSeriesComponent = /** @class */ (function () {
     function LineSeriesComponent() {
         this.animations = true;
+        this.strokeWidth = '1.5px';
+        this.showCircleOnValue = false;
+        this.circles = [];
     }
     LineSeriesComponent.prototype.ngOnChanges = function (changes) {
         this.update();
@@ -21,6 +24,10 @@ var LineSeriesComponent = /** @class */ (function () {
     LineSeriesComponent.prototype.update = function () {
         this.updateGradients();
         var data = this.sortData(this.data.series);
+        if (this.showCircleOnValue) {
+            this.generateCircles(data);
+            console.log(this.circles);
+        }
         var lineGen = this.getLineGenerator();
         this.path = lineGen(data) || '';
         var areaGen = this.getAreaGenerator();
@@ -41,6 +48,17 @@ var LineSeriesComponent = /** @class */ (function () {
         else {
             this.stroke = this.colors.getColor(this.data.name);
         }
+    };
+    LineSeriesComponent.prototype.generateCircles = function (data) {
+        var _this = this;
+        this.circles = [];
+        data.forEach(function (d) {
+            _this.circles.push({
+                x: _this.xScale(d.name),
+                y: _this.yScale(d.value),
+                fill: _this.colors.getColor(_this.data.name)
+            });
+        });
     };
     LineSeriesComponent.prototype.getLineGenerator = function () {
         var _this = this;
@@ -180,10 +198,18 @@ var LineSeriesComponent = /** @class */ (function () {
         Input(),
         __metadata("design:type", Boolean)
     ], LineSeriesComponent.prototype, "animations", void 0);
+    __decorate([
+        Input(),
+        __metadata("design:type", String)
+    ], LineSeriesComponent.prototype, "strokeWidth", void 0);
+    __decorate([
+        Input(),
+        __metadata("design:type", Boolean)
+    ], LineSeriesComponent.prototype, "showCircleOnValue", void 0);
     LineSeriesComponent = __decorate([
         Component({
             selector: 'g[ngx-charts-line-series]',
-            template: "\n    <svg:g>\n      <defs>\n        <svg:g ngx-charts-svg-linear-gradient *ngIf=\"hasGradient\"\n          orientation=\"vertical\"\n          [name]=\"gradientId\"\n          [stops]=\"gradientStops\"\n        />\n      </defs>\n      <svg:g ngx-charts-area\n        class=\"line-highlight\"\n        [data]=\"data\"\n        [path]=\"areaPath\"\n        [fill]=\"hasGradient ? gradientUrl : colors.getColor(data.name)\"\n        [opacity]=\"0.25\"\n        [startOpacity]=\"0\"\n        [gradient]=\"true\"\n        [stops]=\"areaGradientStops\"\n        [class.active]=\"isActive(data)\"\n        [class.inactive]=\"isInactive(data)\"\n        [animations]=\"animations\"\n      />\n      <svg:g ngx-charts-line\n        class=\"line-series\"\n        [data]=\"data\"\n        [path]=\"path\"\n        [stroke]=\"stroke\"\n        [animations]=\"animations\"\n        [class.active]=\"isActive(data)\"\n        [class.inactive]=\"isInactive(data)\"\n      />\n     <svg:g ngx-charts-area\n        *ngIf=\"hasRange\"\n        class=\"line-series-range\"\n        [data]=\"data\"\n        [path]=\"outerPath\"\n        [fill]=\"hasGradient ? gradientUrl : colors.getColor(data.name)\"\n        [class.active]=\"isActive(data)\"\n        [class.inactive]=\"isInactive(data)\"\n        [opacity]=\"rangeFillOpacity\"\n        [animations]=\"animations\"\n      />\n    </svg:g>\n  ",
+            template: "\n    <svg:g>\n      <defs>\n        <svg:g ngx-charts-svg-linear-gradient *ngIf=\"hasGradient\"\n          orientation=\"vertical\"\n          [name]=\"gradientId\"\n          [stops]=\"gradientStops\"\n        />\n      </defs>\n      <svg:g ngx-charts-area\n        class=\"line-highlight\"\n        [data]=\"data\"\n        [path]=\"areaPath\"\n        [fill]=\"hasGradient ? gradientUrl : colors.getColor(data.name)\"\n        [opacity]=\"0.25\"\n        [startOpacity]=\"0\"\n        [gradient]=\"true\"\n        [stops]=\"areaGradientStops\"\n        [class.active]=\"isActive(data)\"\n        [class.inactive]=\"isInactive(data)\"\n        [animations]=\"animations\"\n      />\n      <svg:g ngx-charts-line\n        class=\"line-series\"\n        [data]=\"data\"\n        [path]=\"path\"\n        [stroke]=\"stroke\"\n        [strokeWidth]=\"strokeWidth\"\n        [animations]=\"animations\"\n        [class.active]=\"isActive(data)\"\n        [class.inactive]=\"isInactive(data)\"\n      />\n     <svg:g ngx-charts-area\n        *ngIf=\"hasRange\"\n        class=\"line-series-range\"\n        [data]=\"data\"\n        [path]=\"outerPath\"\n        [fill]=\"hasGradient ? gradientUrl : colors.getColor(data.name)\"\n        [class.active]=\"isActive(data)\"\n        [class.inactive]=\"isInactive(data)\"\n        [opacity]=\"rangeFillOpacity\"\n        [animations]=\"animations\"\n      />\n      \n      <svg:g *ngFor=\"let circle of circles\" >\n        <svg:g *ngIf=\"showCircleOnValue\">\n          <svg:g\n            ngx-charts-circle\n            class=\"circle\"\n            [cx]=\"circle.x\"\n            [cy]=\"circle.y\"\n            r=\"6\"\n            [fill]=\"circle.fill\"\n          />\n          <svg:g\n            ngx-charts-circle\n            class=\"circle\"\n            [cx]=\"circle.x\"\n            [cy]=\"circle.y\"\n            r=\"3\"\n            fill=\"white\"\n          />\n        </svg:g>\n      </svg:g>\n\n\n\n    </svg:g>\n  ",
             changeDetection: ChangeDetectionStrategy.OnPush
         })
     ], LineSeriesComponent);

@@ -47,7 +47,7 @@ import { getUniqueXDomainValues, getScaleType } from '../common/domain.helper';
           *ngIf="xAxis"
           [xScale]="xScale"
           [dims]="dims"
-          [showGridLines]="showGridLines"
+          [showGridLines]="showXAxisGridLines"
           [showLabel]="showXAxisLabel"
           [labelText]="xAxisLabel"
           [trimTicks]="trimXAxisTicks"
@@ -62,7 +62,7 @@ import { getUniqueXDomainValues, getScaleType } from '../common/domain.helper';
           *ngIf="yAxis"
           [yScale]="yScale"
           [dims]="dims"
-          [showGridLines]="showGridLines"
+          [showGridLines]="showYAxisGridLines"
           [showLabel]="showYAxisLabel"
           [labelText]="yAxisLabel"
           [trimTicks]="trimYAxisTicks"
@@ -72,6 +72,7 @@ import { getUniqueXDomainValues, getScaleType } from '../common/domain.helper';
           [referenceLines]="referenceLines"
           [showRefLines]="showRefLines"
           [showRefLabels]="showRefLabels"
+          [yOrient]="yAxisOrient"
           (dimensionsChanged)="updateYAxisWidth($event)"
         ></svg:g>
         <svg:g [attr.clip-path]="clipPath">
@@ -88,6 +89,8 @@ import { getUniqueXDomainValues, getScaleType } from '../common/domain.helper';
               [rangeFillOpacity]="rangeFillOpacity"
               [hasRange]="hasRange"
               [animations]="animations"
+              [strokeWidth]="strokeWidth"
+              [showCircleOnValue]="showCircleOnValue"
             />
           </svg:g>
 
@@ -187,6 +190,8 @@ export class LineChartComponent extends BaseChartComponent {
   @Input() timeline;
   @Input() gradient: boolean;
   @Input() showGridLines: boolean = true;
+  @Input() showXAxisGridLines: boolean = true;
+  @Input() showYAxisGridLines: boolean = true;
   @Input() curve: any = curveLinear;
   @Input() activeEntries: any[] = [];
   @Input() schemeType: string;
@@ -209,6 +214,10 @@ export class LineChartComponent extends BaseChartComponent {
   @Input() xScaleMax: any;
   @Input() yScaleMin: number;
   @Input() yScaleMax: number;
+
+  @Input() strokeWidth: string = '1.5px';
+  @Input() yAxisOrient: string = 'left';
+  @Input() showCircleOnValue: boolean = false;
 
   @Output() activate: EventEmitter<any> = new EventEmitter();
   @Output() deactivate: EventEmitter<any> = new EventEmitter();

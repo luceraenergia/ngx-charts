@@ -9,6 +9,7 @@ export declare class CircleComponent implements OnChanges {
     classNames: any;
     circleOpacity: any;
     pointerEvents: any;
+    animations: boolean;
     select: EventEmitter<{}>;
     activate: EventEmitter<{}>;
     deactivate: EventEmitter<{}>;

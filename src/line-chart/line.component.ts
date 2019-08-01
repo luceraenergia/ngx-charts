@@ -25,7 +25,7 @@ import { select } from 'd3-selection';
       [attr.d]="initialPath"
       [attr.fill]="fill"
       [attr.stroke]="stroke"
-      stroke-width="1.5px"
+      [attr.stroke-width]="strokeWidth"
     />
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -50,6 +50,7 @@ export class LineComponent implements OnChanges {
   @Input() data;
   @Input() fill: string = 'none';
   @Input() animations: boolean = true;
+  @Input() strokeWidth: string = '1.5px';
 
   @Output() select = new EventEmitter();
 

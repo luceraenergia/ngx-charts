@@ -6,6 +6,7 @@ export declare class LineComponent implements OnChanges {
     data: any;
     fill: string;
     animations: boolean;
+    strokeWidth: string;
     select: EventEmitter<{}>;
     initialized: boolean;
     initialPath: string;

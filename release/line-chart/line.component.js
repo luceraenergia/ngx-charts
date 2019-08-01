@@ -15,6 +15,7 @@ var LineComponent = /** @class */ (function () {
         this.element = element;
         this.fill = 'none';
         this.animations = true;
+        this.strokeWidth = '1.5px';
         this.select = new EventEmitter();
         this.initialized = false;
     }
@@ -59,13 +60,17 @@ var LineComponent = /** @class */ (function () {
         __metadata("design:type", Boolean)
     ], LineComponent.prototype, "animations", void 0);
     __decorate([
+        Input(),
+        __metadata("design:type", String)
+    ], LineComponent.prototype, "strokeWidth", void 0);
+    __decorate([
         Output(),
         __metadata("design:type", Object)
     ], LineComponent.prototype, "select", void 0);
     LineComponent = __decorate([
         Component({
             selector: 'g[ngx-charts-line]',
-            template: "\n    <svg:path\n      [@animationState]=\"'active'\"\n      class=\"line\"\n      [attr.d]=\"initialPath\"\n      [attr.fill]=\"fill\"\n      [attr.stroke]=\"stroke\"\n      stroke-width=\"1.5px\"\n    />\n  ",
+            template: "\n    <svg:path\n      [@animationState]=\"'active'\"\n      class=\"line\"\n      [attr.d]=\"initialPath\"\n      [attr.fill]=\"fill\"\n      [attr.stroke]=\"stroke\"\n      [attr.stroke-width]=\"strokeWidth\"\n    />\n  ",
             changeDetection: ChangeDetectionStrategy.OnPush,
             animations: [
                 trigger('animationState', [

@@ -16,6 +16,8 @@ export declare class LineChartComponent extends BaseChartComponent {
     timeline: any;
     gradient: boolean;
     showGridLines: boolean;
+    showXAxisGridLines: boolean;
+    showYAxisGridLines: boolean;
     curve: any;
     activeEntries: any[];
     schemeType: string;
@@ -38,6 +40,9 @@ export declare class LineChartComponent extends BaseChartComponent {
     xScaleMax: any;
     yScaleMin: number;
     yScaleMax: number;
+    strokeWidth: string;
+    yAxisOrient: string;
+    showCircleOnValue: boolean;
     activate: EventEmitter<any>;
     deactivate: EventEmitter<any>;
     tooltipTemplate: TemplateRef<any>;

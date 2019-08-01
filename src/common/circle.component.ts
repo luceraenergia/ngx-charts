@@ -8,6 +8,7 @@ import {
   ChangeDetectionStrategy,
   HostListener
 } from '@angular/core';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'g[ngx-charts-circle]',
@@ -23,7 +24,18 @@ import {
       [attr.pointer-events]="pointerEvents"
     />
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('animationState', [
+      transition(':enter', [
+        style({
+          opacity: 0,
+          transform: 'scale(0)'
+        }),
+        animate(250, style({ opacity: 1, transform: 'scale(1)' }))
+      ])
+    ])
+  ]
 })
 export class CircleComponent implements OnChanges {
 
@@ -36,6 +48,8 @@ export class CircleComponent implements OnChanges {
   @Input() classNames;
   @Input() circleOpacity;
   @Input() pointerEvents;
+
+  @Input() animations: boolean = true;
 
   @Output() select = new EventEmitter();
   @Output() activate = new EventEmitter();

@@ -39,6 +39,7 @@ import { sortLinear, sortByTime, sortByDomain } from '../utils/sort';
         [data]="data"
         [path]="path"
         [stroke]="stroke"
+        [strokeWidth]="strokeWidth"
         [animations]="animations"
         [class.active]="isActive(data)"
         [class.inactive]="isInactive(data)"
@@ -54,6 +55,30 @@ import { sortLinear, sortByTime, sortByDomain } from '../utils/sort';
         [opacity]="rangeFillOpacity"
         [animations]="animations"
       />
+      
+      <svg:g *ngFor="let circle of circles" >
+        <svg:g *ngIf="showCircleOnValue">
+          <svg:g
+            ngx-charts-circle
+            class="circle"
+            [cx]="circle.x"
+            [cy]="circle.y"
+            r="6"
+            [fill]="circle.fill"
+          />
+          <svg:g
+            ngx-charts-circle
+            class="circle"
+            [cx]="circle.x"
+            [cy]="circle.y"
+            r="3"
+            fill="white"
+          />
+        </svg:g>
+      </svg:g>
+
+
+
     </svg:g>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -71,6 +96,9 @@ export class LineSeriesComponent implements OnChanges {
   @Input() hasRange: boolean;
   @Input() animations: boolean = true;
 
+  @Input() strokeWidth: string = '1.5px';
+  @Input() showCircleOnValue: boolean = false;
+
   path: string;
   outerPath: string;
   areaPath: string;
@@ -81,6 +109,8 @@ export class LineSeriesComponent implements OnChanges {
   areaGradientStops: any[];
   stroke: any;
 
+  circles = [];
+
   ngOnChanges(changes: SimpleChanges): void {
     this.update();
   }
@@ -89,6 +119,11 @@ export class LineSeriesComponent implements OnChanges {
     this.updateGradients();
 
     const data = this.sortData(this.data.series);
+
+    if (this.showCircleOnValue) {
+      this.generateCircles(data);
+      console.log(this.circles);
+    }
 
     const lineGen = this.getLineGenerator();
     this.path = lineGen(data) || '';
@@ -112,6 +147,17 @@ export class LineSeriesComponent implements OnChanges {
     } else {
       this.stroke = this.colors.getColor(this.data.name);
     }
+  }
+
+  generateCircles(data) {
+    this.circles = [];
+    data.forEach(d => {
+      this.circles.push({
+        x: this.xScale(d.name),
+        y: this.yScale(d.value),
+        fill: this.colors.getColor(this.data.name)
+      });
+    });
   }
 
   getLineGenerator(): any {

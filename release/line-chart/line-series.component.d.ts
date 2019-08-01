@@ -10,6 +10,8 @@ export declare class LineSeriesComponent implements OnChanges {
     rangeFillOpacity: number;
     hasRange: boolean;
     animations: boolean;
+    strokeWidth: string;
+    showCircleOnValue: boolean;
     path: string;
     outerPath: string;
     areaPath: string;
@@ -19,8 +21,10 @@ export declare class LineSeriesComponent implements OnChanges {
     gradientStops: any[];
     areaGradientStops: any[];
     stroke: any;
+    circles: any[];
     ngOnChanges(changes: SimpleChanges): void;
     update(): void;
+    generateCircles(data: any): void;
     getLineGenerator(): any;
     getRangeGenerator(): any;
     getAreaGenerator(): any;

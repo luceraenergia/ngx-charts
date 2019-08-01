@@ -10,6 +10,7 @@ import { formatLabel } from '../src/common/label.helper';
 import {
   lucera,
   lucera_nodata,
+  lucera_neighbours,
   single,
   multi,
   bubble,
@@ -113,6 +114,11 @@ export class AppComponent implements OnInit {
   activateSerie = true;
   tooltipShowTimeout = 0;
   activateOnTouchMove = false;
+
+  strokeWidth = '4px';
+  showXAxisGridLines = false;
+  showYAxisGridLines = true;
+  showCircleOnValue = true;
 
   curves = {
     Basis: shape.curveBasis,
@@ -252,6 +258,7 @@ export class AppComponent implements OnInit {
     Object.assign(this, {
       lucera,
       lucera_nodata,
+      lucera_neighbours,
       single,
       multi,
       countries,

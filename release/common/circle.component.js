@@ -8,8 +8,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, HostListener } from '@angular/core';
+import { trigger, transition, style, animate } from '@angular/animations';
 var CircleComponent = /** @class */ (function () {
     function CircleComponent() {
+        this.animations = true;
         this.select = new EventEmitter();
         this.activate = new EventEmitter();
         this.deactivate = new EventEmitter();
@@ -66,6 +68,10 @@ var CircleComponent = /** @class */ (function () {
         __metadata("design:type", Object)
     ], CircleComponent.prototype, "pointerEvents", void 0);
     __decorate([
+        Input(),
+        __metadata("design:type", Boolean)
+    ], CircleComponent.prototype, "animations", void 0);
+    __decorate([
         Output(),
         __metadata("design:type", Object)
     ], CircleComponent.prototype, "select", void 0);
@@ -99,7 +105,18 @@ var CircleComponent = /** @class */ (function () {
         Component({
             selector: 'g[ngx-charts-circle]',
             template: "\n    <svg:circle\n      [attr.cx]=\"cx\"\n      [attr.cy]=\"cy\"\n      [attr.r]=\"r\"\n      [attr.fill]=\"fill\"\n      [attr.stroke]=\"stroke\"\n      [attr.opacity]=\"circleOpacity\"\n      [attr.class]=\"classNames\"\n      [attr.pointer-events]=\"pointerEvents\"\n    />\n  ",
-            changeDetection: ChangeDetectionStrategy.OnPush
+            changeDetection: ChangeDetectionStrategy.OnPush,
+            animations: [
+                trigger('animationState', [
+                    transition(':enter', [
+                        style({
+                            opacity: 0,
+                            transform: 'scale(0)'
+                        }),
+                        animate(250, style({ opacity: 1, transform: 'scale(1)' }))
+                    ])
+                ])
+            ]
         })
     ], CircleComponent);
     return CircleComponent;
